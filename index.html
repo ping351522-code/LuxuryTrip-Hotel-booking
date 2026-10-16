@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="my" translate="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="google" content="notranslate">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Trip - Secure Booking & Member Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-main: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --success: #22c55e;
+            --error: #ef4444;
+        }
+        * { box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s ease; }
+        body { background-color: var(--bg-main); color: var(--text-main); margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+
+        .container { width: 100%; max-width: 480px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; padding: 30px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5); }
+        .hidden { display: none !important; }
+
+        h2 { text-align: center; margin-top: 0; margin-bottom: 25px; font-size: 24px; background: linear-gradient(to right, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; }
+        .form-group input { width: 100%; padding: 12px 16px; background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border); border-radius: 10px; color: var(--text-main); font-size: 14px; outline: none; }
+        .form-group input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2); }
+
+        .btn { width: 100%; background: linear-gradient(135deg, var(--primary), #6366f1); color: white; border: none; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 15px; cursor: pointer; margin-top: 10px; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4); }
+        .btn:hover { opacity: 0.9; }
+
+        .switch-text { text-align: center; margin-top: 20px; font-size: 13px; color: var(--text-muted); }
+        .switch-text span { color: #818cf8; cursor: pointer; font-weight: 600; }
+        .switch-text span:hover { text-decoration: underline; }
+
+        /* Dashboard Styles */
+        .dashboard-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 15px; margin-bottom: 20px; }
+        .balance-card { background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border); padding: 15px; border-radius: 14px; margin-bottom: 20px; text-align: center; }
+        .balance-card span { font-size: 12px; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
+        .balance-card h3 { font-size: 28px; margin: 5px 0 0 0; color: var(--success); }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; }
+        .stat-box { background: rgba(15, 23, 42, 0.4); border: 1px solid var(--border); padding: 12px; border-radius: 12px; text-align: center; }
+        .stat-box span { font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 4px; }
+        .stat-box strong { font-size: 16px; color: #f8fafc; }
+
+        /* Chat System */
+        .chat-section { background: rgba(15, 23, 42, 0.5); border: 1px solid var(--border); border-radius: 14px; padding: 15px; margin-top: 20px; }
+        .chat-messages { height: 160px; overflow-y: auto; background: rgba(15, 23, 42, 0.9); padding: 10px; border-radius: 8px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 6px; border: 1px solid var(--border); }
+        .message { padding: 6px 10px; border-radius: 8px; max-width: 80%; font-size: 12px; word-break: break-word; }
+        .message.user { background: var(--primary); color: white; align-self: flex-end; }
+        .message.admin { background: var(--border); color: var(--text-main); align-self: flex-start; }
+        .chat-input-row { display: flex; gap: 8px; }
+        .chat-input-row input { flex: 1; padding: 8px 10px; background: rgba(15, 23, 42, 0.9); border: 1px solid var(--border); border-radius: 8px; color: var(--text-main); font-size: 12px; outline: none; }
+        .btn-chat-send { background: var(--primary); color: white; border: none; padding: 8px 14px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 12px; }
+
+        .btn-logout { background: transparent; border: 1px solid var(--error); color: var(--error); padding: 8px 15px; border-radius: 8px; font-size: 12px; cursor: pointer; font-weight: 600; }
+        .btn-logout:hover { background: var(--error); color: white; }
+    </style>
+</head>
+<body>
+
+<div class="container" id="authContainer">
+    <!-- Login Form -->
+    <div id="loginView">
+        <h2>🔐 အကောင့်ဝင်ရန်</h2>
+        <div class="form-group">
+            <label>ဖုန်းနံပါတ် သို့မဟုတ် User ID</label>
+            <input type="text" id="loginIdentifier" placeholder="ထည့်သွင်းပါ...">
+        </div>
+        <div class="form-group">
+            <label>စကားဝှက် (Password)</label>
+            <input type="password" id="loginPassword" placeholder="••••••••">
+        </div>
+        <button class="btn" onclick="handleLogin()">အကောင့်ဝင်မည်</button>
+        <div class="switch-text">
+            အကောင့်မရှိသေးဘူးလား? <span onclick="switchView('register')">စာရင်းပေးသွင်းရန်</span>
+        </div>
+    </div>
+
+    <!-- Register Form -->
+    <div id="registerView" class="hidden">
+        <h2>📝 အသစ်စာရင်းသွင်းရန်</h2>
+        <div class="form-group">
+            <label>အမည်အပြည့်အစုံ</label>
+            <input type="text" id="regFullName" placeholder="သင်၏နာမည်...">
+        </div>
+        <div class="form-group">
+            <label>ဖုန်းနံပါတ်</label>
+            <input type="text" id="regPhone" placeholder="09xxxxxxxxx">
+        </div>
+        <div class="form-group">
+            <label>စကားဝှက် (Password)</label>
+            <input type="password" id="regPassword" placeholder="••••••••">
+        </div>
+        <div class="form-group">
+            <label>Invite Code (သို့) မာစတာကုဒ် (735522)</label>
+            <input type="text" id="regInviteCode" placeholder="ကုဒ်ထည့်ရန်...">
+        </div>
+        <button class="btn" onclick="handleRegister()">အကောင့်ဖန်တီးမည်</button>
+        <div class="switch-text">
+            အကောင့်ရှိပြီးသားလား? <span onclick="switchView('login')">အကောင့်ဝင်ရန်</span>
+        </div>
+    </div>
+</div>
+
+<!-- Main Dashboard Container -->
+<div class="container hidden" id="dashboardContainer">
+    <div class="dashboard-header">
+        <h3 id="userWelcomeTitle" style="margin:0; font-size:18px; color:#818cf8;">Welcome</h3>
+        <button class="btn-logout" onclick="handleLogout()">ထွက်မည်</button>
+    </div>
+
+    <div class="balance-card">
+        <span>အကောင့်လက်ကျန်ငွေ (Balance)</span>
+        <h3 id="userBalanceDisplay">0 Ks</h3>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-box">
+            <span>User ID</span>
+            <strong id="dispUserId">-</strong>
+        </div>
+        <div class="stat-box">
+            <span>ကိုယ်ပိုင် Invite Code</span>
+            <strong id="dispInviteCode">-</strong>
+        </div>
+        <div class="stat-box">
+            <span>Booking အကြိမ်</span>
+            <strong id="dispBookingCount">0 / 60</strong>
+        </div>
+        <div class="stat-box">
+            <span>Order Value</span>
+            <strong id="dispOrderValue">10,000 Ks</strong>
+        </div>
+    </div>
+
+    <button class="btn" onclick="performBooking()" style="background: linear-gradient(135deg, var(--success), #16a34a);">🚀 Booking စတင်ရန်</button>
+
+    <!-- User Chat Section -->
+    <div class="chat-section">
+        <h4 style="margin-top:0; color: #818cf8; font-size:14px; margin-bottom:10px;">💬 Admin နှင့် တိုက်ရိုက်ဆွေးနွေးရန်</h4>
+        <div class="chat-messages" id="userChatMessages">
+            <p style="color: var(--text-muted); text-align: center; font-size:12px;">စာများ ရယူနေသည်...</p>
+        </div>
+        <div class="chat-input-row">
+            <input type="text" id="userChatInput" placeholder="မက်ဆေ့ချ်ပို့ရန်..." onkeypress="handleUserChatKey(event)">
+            <button class="btn-chat-send" onclick="sendUserMessage()">ပို့မည်</button>
+        </div>
+    </div>
+</div>
+
+<!-- Firebase SDK v8 CDN -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyB1DGwjqxNa7niZF0hWUPM0xbW_-Q_Gvz4",
+    authDomain: "tripbooking-app-cd1b8.firebaseapp.com",
+    databaseURL: "https://tripbooking-app-cd1b8-default-rtdb.firebaseio.com",
+    projectId: "tripbooking-app-cd1b8",
+    storageBucket: "tripbooking-app-cd1b8.appspot.com",
+    messagingSenderId: "278352913024",
+    appId: "1:278352913024:web:e699747583010a294f3c65"
+  };
+
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+  const db = firebase.database();
+
+  let currentUserKey = localStorage.getItem('activeUserKey');
+
+  window.onload = function() {
+    if(currentUserKey) {
+      verifyAndLoadDashboard(currentUserKey);
+    }
+  };
+
+  function switchView(view) {
+    if(view === 'register') {
+      document.getElementById('loginView').classList.add('hidden');
+      document.getElementById('registerView').classList.remove('hidden');
+    } else {
+      document.getElementById('registerView').classList.add('hidden');
+      document.getElementById('loginView').classList.remove('hidden');
+    }
+  }
+
+  function handleRegister() {
+    const fullName = document.getElementById('regFullName').value.trim();
+    const phone = document.getElementById('regPhone').value.trim();
+    const password = document.getElementById('regPassword').value.trim();
+    const inviteCode = document.getElementById('regInviteCode').value.trim();
+
+    if(!fullName || !phone || !password || !inviteCode) {
+      alert('အချက်အလက်များအားလုံး ဖြည့်စွက်ပေးပါ။');
+      return;
+    }
+
+    db.ref('users').once('value').then(snapshot => {
+      const users = snapshot.val() || {};
+      let isValidCode = false;
+
+      if(inviteCode === '735522') {
+        isValidCode = true;
+      } else {
+        Object.values(users).forEach(u => {
+          if(u.inviteCode === inviteCode) isValidCode = true;
+        });
+      }
+
+      if(!isValidCode) {
+        alert('ထည့်သွင်းထားသော Invite Code (သို့) မာစတာကုဒ် မမှန်ကန်ပါ။');
+        return;
+      }
+
+      const newUserId = Math.floor(100000 + Math.random() * 900000).toString();
+      const myInviteCode = 'LT-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+      const newUserKey = db.ref('users').push().key;
+
+      const userData = {
+        firebaseKey: newUserKey,
+        userId: newUserId,
+        fullName: fullName,
+        phone: phone,
+        password: password,
+        inviteCode: myInviteCode,
+        balance: 0,
+        bookingCount: 0,
+        bookingValue: 10000
+      };
+
+      db.ref('users/' + newUserKey).set(userData).then(() => {
+        localStorage.setItem('activeUserKey', newUserKey);
+        alert('✨ အကောင့်ဖွင့်ခြင်း အောင်မြင်ပါသည်။');
+        loadDashboard(userData);
+      });
+    });
+  }
+
+  function handleLogin() {
+    const identifier = document.getElementById('loginIdentifier').value.trim();
+    const password = document.getElementById('loginPassword').value.trim();
+
+    if(!identifier || !password) {
+      alert('ဖုန်းနံပါတ် (သို့) ID နှင့် စကားဝှက် ထည့်ပါ။');
+      return;
+    }
+
+    db.ref('users').once('value').then(snapshot => {
+      const users = snapshot.val() || {};
+      let foundKey = null;
+      let foundUser = null;
+
+      Object.keys(users).forEach(key => {
+        const u = users[key];
+        if((u.phone === identifier || u.userId === identifier) && u.password === password) {
+          foundKey = key;
+          foundUser = u;
+        }
+      });
+
+      if(foundUser) {
+        localStorage.setItem('activeUserKey', foundKey);
+        loadDashboard(foundUser);
+      } else {
+        alert('အချက်အလက်များ မှားယွင်းနေပါသည်။');
+      }
+    });
+  }
+
+  function verifyAndLoadDashboard(userKey) {
+    db.ref('users/' + userKey).once('value').then(snapshot => {
+      const u = snapshot.val();
+      if(u) {
+        loadDashboard(u);
+      } else {
+        handleLogout();
+      }
+    });
+  }
+
+  function loadDashboard(u) {
+    document.getElementById('authContainer').classList.add('hidden');
+    document.getElementById('dashboardContainer').classList.remove('hidden');
+
+    document.getElementById('userWelcomeTitle').innerText = `ကြိုဆိုပါတယ်, ${u.fullName}`;
+    document.getElementById('dispUserId').innerText = u.userId;
+    document.getElementById('dispInviteCode').innerText = u.inviteCode;
+
+    db.ref('users/' + u.firebaseKey).on('value', snap => {
+      const updated = snap.val() || u;
+      document.getElementById('userBalanceDisplay').innerText = (updated.balance || 0).toLocaleString() + ' Ks';
+      document.getElementById('dispBookingCount').innerText = `${updated.bookingCount || 0} / 60`;
+      document.getElementById('dispOrderValue').innerText = (updated.bookingValue || 10000).toLocaleString() + ' Ks';
+    });
+
+    loadUserChat(u.firebaseKey);
+  }
+
+  function performBooking() {
+    const userKey = localStorage.getItem('activeUserKey');
+    db.ref('users/' + userKey).once('value').then(snapshot => {
+      const u = snapshot.val();
+      let currentCount = u.bookingCount || 0;
+      let orderVal = u.bookingValue || 10000;
+      let currentBal = u.balance || 0;
+
+      if(currentCount >= 60) {
+        alert('Booking အကြိမ် ၆၀ ပြည့်သွားပါပြီ!');
+        return;
+      }
+
+      if(currentBal < orderVal) {
+        alert('အကောင့်လက်ကျန်ငွေ မလုံလောက်ပါ။ Admin ထံ ဆက်သွယ်ပါ။');
+        return;
+      }
+
+      db.ref('users/' + userKey).update({
+        balance: currentBal - orderVal,
+        bookingCount: currentCount + 1
+      }).then(() => {
+        alert('🎉 Booking အောင်မြင်ပါသည်!');
+      });
+    });
+  }
+
+  function loadUserChat(userKey) {
+    db.ref('chats/' + userKey).on('value', snap => {
+      const chatData = snap.val() || {};
+      const container = document.getElementById('userChatMessages');
+      container.innerHTML = "";
+
+      if(Object.keys(chatData).length === 0) {
+        container.innerHTML = '<p style="color: var(--text-muted); text-align: center; font-size:12px;">မက်ဆေ့ချ်များ မရှိသေးပါ။</p>';
+        return;
+      }
+
+      Object.keys(chatData).forEach(msgKey => {
+        const msg = chatData[msgKey];
+        const div = document.createElement('div');
+        div.className = `message ${msg.sender}`;
+        div.innerText = msg.text;
+        container.appendChild(div);
+      });
+      container.scrollTop = container.scrollHeight;
+    });
+  }
+
+  function sendUserMessage() {
+    const input = document.getElementById('userChatInput');
+    const text = input.value.trim();
+    const userKey = localStorage.getItem('activeUserKey');
+    if(!text || !userKey) return;
+
+    db.ref('chats/' + userKey).push({
+      sender: 'user',
+      text: text,
+      timestamp: Date.now()
+    }).then(() => {
+      input.value = '';
+    });
+  }
+
+  function handleUserChatKey(e) {
+    if(e.key === 'Enter') {
+      sendUserMessage();
+    }
+  }
+
+  function handleLogout() {
+    localStorage.removeItem('activeUserKey');
+    location.reload();
+  }
+</script>
+
+</body>
+</html>
