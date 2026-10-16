@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Messages Center</title>
+    <title>Admin Login & Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -15,11 +15,25 @@
             --text-muted: #94a3b8;
             --border: #334155;
             --success: #22c55e;
+            --error: #ef4444;
             --hover: #2e3b55;
         }
         * { box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: var(--bg-main); color: var(--text-main); margin: 0; padding: 10px; }
+        body { background-color: var(--bg-main); color: var(--text-main); margin: 0; padding: 10px; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        
+        .hidden { display: none !important; }
 
+        /* Login Box Styles */
+        .login-container { width: 100%; max-width: 400px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 30px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5); }
+        .login-container h2 { text-align: center; margin-top: 0; margin-bottom: 20px; font-size: 22px; background: linear-gradient(to right, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 5px; }
+        .form-group input { width: 100%; padding: 10px 14px; background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border); border-radius: 8px; color: var(--text-main); font-size: 13px; outline: none; }
+        .form-group input:focus { border-color: var(--primary); }
+        .btn-login { width: 100%; background: linear-gradient(135deg, var(--primary), #6366f1); color: white; border: none; padding: 10px; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; margin-top: 10px; }
+
+        /* Admin Dashboard Layout */
+        .admin-wrapper { width: 100%; max-width: 1200px; margin: auto; }
         .header { display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); padding: 12px 15px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 10px; }
         .header h2 { margin: 0; font-size: 16px; background: linear-gradient(to right, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
@@ -28,13 +42,10 @@
         .nav-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
 
         .main-layout { display: flex; gap: 10px; align-items: flex-start; }
-        
         .left-panel { width: 280px; background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border); padding: 10px; }
         .right-panel { flex: 1; background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border); padding: 15px; margin-bottom: 50px; }
 
         .search-input { width: 100%; padding: 10px; background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border); border-radius: 8px; color: var(--text-main); font-size: 13px; outline: none; margin-bottom: 8px; }
-        .search-input:focus { border-color: var(--primary); }
-
         .user-list { display: flex; flex-direction: column; gap: 6px; max-height: 70vh; overflow-y: auto; }
         .user-card { background: rgba(15, 23, 42, 0.5); padding: 10px; border-radius: 8px; border: 1px solid var(--border); cursor: pointer; }
         .user-card:hover, .user-card.active { background: var(--hover); border-color: var(--primary); }
@@ -42,7 +53,6 @@
         .user-card p { margin: 0; font-size: 11px; color: var(--text-muted); }
 
         .section-title { font-size: 15px; font-weight: 700; color: #818cf8; margin-top: 0; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
-        
         .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px; }
         .info-box { background: rgba(15, 23, 42, 0.6); padding: 8px 10px; border-radius: 8px; border: 1px solid var(--border); }
         .info-box span { display: block; font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-weight: 600; margin-bottom: 2px; }
@@ -52,8 +62,6 @@
         .form-row { margin-bottom: 8px; }
         .form-row label { display: block; font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 3px; }
         .form-row input { width: 100%; padding: 8px; background: rgba(15, 23, 42, 0.9); border: 1px solid var(--border); border-radius: 6px; color: var(--text-main); font-size: 13px; outline: none; }
-        .form-row input:focus { border-color: var(--primary); }
-
         .btn-save { background: linear-gradient(135deg, var(--success), #16a34a); color: white; border: none; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; cursor: pointer; width: 100%; margin-top: 5px; }
 
         .admin-chat-section { background: rgba(15, 23, 42, 0.7); padding: 12px; border-radius: 10px; border: 1px solid var(--border); margin-top: 15px; }
@@ -64,6 +72,7 @@
         .chat-input-row { display: flex; gap: 8px; }
         .chat-input-row input { flex: 1; padding: 8px 10px; background: rgba(15, 23, 42, 0.9); border: 1px solid var(--border); border-radius: 6px; color: var(--text-main); font-size: 12px; outline: none; }
         .btn-chat-send { background: var(--primary); color: white; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 12px; white-space: nowrap; }
+        .btn-logout { background: transparent; border: 1px solid var(--error); color: var(--error); padding: 5px 10px; border-radius: 6px; font-size: 11px; cursor: pointer; font-weight: 600; }
 
         .empty-state { text-align: center; color: var(--text-muted); margin-top: 60px; font-size: 13px; }
 
@@ -75,26 +84,43 @@
 </head>
 <body>
 
-<div class="header">
-    <h2>⚡ Admin Management & Messages Center</h2>
-    <span style="font-size: 11px; color: var(--text-muted);">Realtime Secure Dashboard</span>
-</div>
-
-<div class="nav-tabs">
-    <button class="nav-btn active" id="tabUsers" onclick="switchMainTab('users')">👥 User စီမံရန်</button>
-    <button class="nav-btn" id="tabMessages" onclick="switchMainTab('messages')">💬 မက်ဆေ့ချ် အဝင်များ</button>
-</div>
-
-<div class="main-layout">
-    <div class="left-panel">
-        <input type="text" id="searchInput" class="search-input" placeholder="🔍 ရှာရန်..." onkeyup="filterList()">
-        <div class="user-list" id="listContainer">
-            <p style="color: var(--text-muted); text-align: center; margin-top: 15px;">ဒေတာ ရယူနေသည်...</p>
-        </div>
+<!-- Admin Login Container -->
+<div class="login-container" id="adminLoginBox">
+    <h2>🔐 Admin အကောင့်ဝင်ရန်</h2>
+    <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="adminUser" placeholder="Username ထည့်ပါ...">
     </div>
-    <div class="right-panel" id="rightPanel">
-        <div class="empty-state">
-            👈 ဘယ်ဘက်စာရင်းမှ User တစ်ဦးကို ရွေးချယ်ပါ
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="adminPass" placeholder="••••••••">
+    </div>
+    <button class="btn-login" onclick="handleAdminLogin()">အကောင့်ဝင်မည်</button>
+</div>
+
+<!-- Admin Main Dashboard Container -->
+<div class="admin-wrapper hidden" id="adminDashboardBox">
+    <div class="header">
+        <h2>⚡ Admin Management & Messages Center</h2>
+        <button class="btn-logout" onclick="handleAdminLogout()">ထွက်မည်</button>
+    </div>
+
+    <div class="nav-tabs">
+        <button class="nav-btn active" id="tabUsers" onclick="switchMainTab('users')">👥 User စီမံရန်</button>
+        <button class="nav-btn" id="tabMessages" onclick="switchMainTab('messages')">💬 မက်ဆေ့ချ် အဝင်များ</button>
+    </div>
+
+    <div class="main-layout">
+        <div class="left-panel">
+            <input type="text" id="searchInput" class="search-input" placeholder="🔍 ရှာရန်..." onkeyup="filterList()">
+            <div class="user-list" id="listContainer">
+                <p style="color: var(--text-muted); text-align: center; margin-top: 15px;">ဒေတာ ရယူနေသည်...</p>
+            </div>
+        </div>
+        <div class="right-panel" id="rightPanel">
+            <div class="empty-state">
+                👈 ဘယ်ဘက်စာရင်းမှ User တစ်ဦးကို ရွေးချယ်ပါ
+            </div>
         </div>
     </div>
 </div>
@@ -123,15 +149,46 @@
   let activeTab = 'users';
   let activeSelectedUserId = null;
 
-  db.ref('users').on('value', snapshot => {
-    allUsersData = snapshot.val() || {};
-    if(activeTab === 'users') renderUserList(allUsersData);
-  });
+  window.onload = function() {
+    if(localStorage.getItem('isAdminLoggedIn') === 'true') {
+      showDashboard();
+    }
+  };
 
-  db.ref('chats').on('value', snapshot => {
-    allChatsData = snapshot.val() || {};
-    if(activeTab === 'messages') renderMessagesList(allChatsData);
-  });
+  function handleAdminLogin() {
+    const user = document.getElementById('adminUser').value.trim();
+    const pass = document.getElementById('adminPass').value.trim();
+
+    if(user === 'Po Kaing Kaing' && pass === '2006105351522') {
+      localStorage.setItem('isAdminLoggedIn', 'true');
+      showDashboard();
+    } else {
+      alert('Username သို့မဟုတ် Password မှားယွင်းနေပါသည်။');
+    }
+  }
+
+  function showDashboard() {
+    document.getElementById('adminLoginBox').classList.add('hidden');
+    document.getElementById('adminDashboardBox').classList.remove('hidden');
+    initAdminData();
+  }
+
+  function handleAdminLogout() {
+    localStorage.removeItem('isAdminLoggedIn');
+    location.reload();
+  }
+
+  function initAdminData() {
+    db.ref('users').on('value', snapshot => {
+      allUsersData = snapshot.val() || {};
+      if(activeTab === 'users') renderUserList(allUsersData);
+    });
+
+    db.ref('chats').on('value', snapshot => {
+      allChatsData = snapshot.val() || {};
+      if(activeTab === 'messages') renderMessagesList(allChatsData);
+    });
+  }
 
   function switchMainTab(tab) {
     activeTab = tab;
