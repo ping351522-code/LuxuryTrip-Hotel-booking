@@ -28,6 +28,7 @@
             padding: 15px 30px;
             background: #181818;
             border-bottom: 1px solid #333;
+            position: relative;
         }
         .auth-container {
             max-width: 400px;
@@ -46,27 +47,135 @@
         .hidden {
             display: none !important;
         }
+
+        /* Master Menu Button & Sidebar Styling */
+        .master-menu-btn {
+            background: linear-gradient(135deg, #252525, #181818);
+            color: #d4af37;
+            border: 1px solid #d4af37;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        .master-menu-btn:hover {
+            background: #d4af37;
+            color: #121212;
+        }
+
+        .master-sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 280px;
+            height: 100%;
+            background-color: #1a1a1a;
+            border-right: 1px solid #333;
+            box-shadow: 5px 0 25px rgba(0,0,0,0.8);
+            transition: left 0.3s ease;
+            z-index: 2000;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .master-sidebar.open {
+            left: 0;
+        }
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .sidebar-header h3 {
+            color: #d4af37;
+            margin: 0;
+            font-size: 18px;
+        }
+        .close-sidebar {
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .close-sidebar:hover {
+            color: #fff;
+        }
+        .sidebar-menu-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar-menu-list li {
+            padding: 12px 15px;
+            border-bottom: 1px solid #2a2a2a;
+            color: #ddd;
+            cursor: pointer;
+            font-size: 15px;
+            border-radius: 6px;
+            transition: background 0.2s, color 0.2s;
+            margin-bottom: 5px;
+        }
+        .sidebar-menu-list li:hover {
+            background-color: #2d2d2d;
+            color: #d4af37;
+        }
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1500;
+        }
+        .sidebar-overlay.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
 
     <!-- Header Navigation Bar -->
     <header>
-        <!-- Left Side: Language Switcher Menu (Hidden by default until logged in) -->
+        <!-- Left Side: Master Menu Button (Hidden until logged in) -->
         <div style="display: flex; align-items: center; gap: 15px;">
-            <div id="languageSwitcherContainer" class="hidden"></div>
+            <button class="master-menu-btn hidden" id="masterMenuBtn" type="button">
+                <span>☰ Menu</span>
+            </button>
         </div>
 
         <!-- Center: Logo -->
         <div class="logo" data-i18n="hero_title" style="color: #d4af37; font-weight: bold; font-size: 20px; letter-spacing: 1px;">LUXURY TRIP</div>
         
-        <!-- Right Side: Logout Button (Hidden by default until logged in) -->
-        <div>
-            <button class="logout-btn hidden" id="logoutBtn" type="button">
-                <span data-i18n="nav_logout">Logout</span>
-            </button>
-        </div>
+        <!-- Right Side: Empty for balance -->
+        <div style="width: 70px;"></div>
     </header>
+
+    <!-- Master Slide-out Menu Drawer -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="master-sidebar" id="masterSidebar">
+        <div class="sidebar-header">
+            <h3>Navigation Menu</h3>
+            <button class="close-sidebar" id="closeSidebarBtn">&times;</button>
+        </div>
+        <ul class="sidebar-menu-list">
+            <li id="menuMembership">💎 Membership Level</li>
+            <li id="menuWithdrawal">💳 Withdrawal Account</li>
+            <li id="menuUseful">📌 Useful Links</li>
+            <li id="menuCustomer">🎧 Customer Service</li>
+            <li id="menuLanguage">🌐 Change Language</li>
+            <li id="menuLogout" style="color: #ff4d4d; border-top: 1px solid #333; margin-top: 20px; padding-top: 15px;">🚪 Logout</li>
+        </ul>
+    </div>
 
     <!-- 1. LOGIN SECTION (Appears first by default) -->
     <div class="auth-container" id="loginSection">
@@ -101,23 +210,25 @@
         </div>
     </div>
 
-    <!-- Inline Script to Handle Login / Logout State & Menu Visibility -->
+    <!-- Script to Handle Login, Sidebar Menu & Interactions -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const loginSection = document.getElementById("loginSection");
             const dashboardSection = document.getElementById("dashboardSection");
-            const logoutBtn = document.getElementById("logoutBtn");
-            const langContainer = document.getElementById("languageSwitcherContainer");
+            const masterMenuBtn = document.getElementById("masterMenuBtn");
+            const masterSidebar = document.getElementById("masterSidebar");
+            const sidebarOverlay = document.getElementById("sidebarOverlay");
+            const closeSidebarBtn = document.getElementById("closeSidebarBtn");
             const loginForm = document.getElementById("loginForm");
 
             // Check session state on load
             if (localStorage.getItem("isLoggedIn") === "true") {
                 loginSection.classList.add("hidden");
                 dashboardSection.classList.remove("hidden");
-                logoutBtn.classList.remove("hidden");
-                langContainer.classList.remove("hidden");
+                masterMenuBtn.classList.remove("hidden");
             }
 
+            // Login Handler
             loginForm.addEventListener("submit", function(e) {
                 e.preventDefault();
                 const u = document.getElementById("loginUser").value;
@@ -129,25 +240,72 @@
                     
                     loginSection.classList.add("hidden");
                     dashboardSection.classList.remove("hidden");
-                    logoutBtn.classList.remove("hidden");
-                    langContainer.classList.remove("hidden");
-
-                    // Refresh language rendering after login if language.js is loaded
-                    if (typeof applyLanguage === "function") {
-                        applyLanguage(localStorage.getItem("selectedLanguage") || "en");
-                    }
+                    masterMenuBtn.classList.remove("hidden");
                 } else {
                     alert("Please enter valid credentials.");
                 }
             });
 
-            logoutBtn.addEventListener("click", function() {
-                localStorage.removeItem("isLoggedIn");
-                localStorage.removeItem("currentUser");
-                dashboardSection.classList.add("hidden");
-                logoutBtn.classList.add("hidden");
-                langContainer.classList.add("hidden");
-                loginSection.classList.remove("hidden");
+            // Sidebar Toggle Controls
+            masterMenuBtn.addEventListener("click", function() {
+                masterSidebar.classList.add("open");
+                sidebarOverlay.classList.add("active");
+            });
+
+            closeSidebarBtn.addEventListener("click", function() {
+                masterSidebar.classList.remove("open");
+                sidebarOverlay.classList.remove("active");
+            });
+
+            sidebarOverlay.addEventListener("click", function() {
+                masterSidebar.classList.remove("open");
+                sidebarOverlay.classList.remove("active");
+            });
+
+            // Menu Item Actions inside Sidebar
+            document.getElementById("menuMembership").addEventListener("click", function() {
+                alert("Navigating to Membership Level...");
+                masterSidebar.classList.remove("open");
+                sidebarOverlay.classList.remove("active");
+            });
+
+            document.getElementById("menuWithdrawal").addEventListener("click", function() {
+                alert("Navigating to Withdrawal Account...");
+                masterSidebar.classList.remove("open");
+                sidebarOverlay.classList.remove("active");
+            });
+
+            document.getElementById("menuUseful").addEventListener("click", function() {
+                alert("Navigating to Useful Links...");
+                masterSidebar.classList.remove("open");
+                sidebarOverlay.classList.remove("active");
+            });
+
+            document.getElementById("menuCustomer").addEventListener("click", function() {
+                alert("Navigating to Customer Service...");
+                masterSidebar.classList.remove("open");
+                sidebarOverlay.classList.remove("active");
+            });
+
+            document.getElementById("menuLanguage").addEventListener("click", function() {
+                const lang = prompt("Select Language (en, mm, th, jp, kr, cn, vn):", "mm");
+                if (lang && typeof selectLanguage === "function") {
+                    selectLanguage(lang);
+                }
+                masterSidebar.classList.remove("open");
+                sidebarOverlay.classList.remove("active");
+            });
+
+            document.getElementById("menuLogout").addEventListener("click", function() {
+                if (confirm("Are you sure you want to log out?")) {
+                    localStorage.removeItem("isLoggedIn");
+                    localStorage.removeItem("currentUser");
+                    dashboardSection.classList.add("hidden");
+                    masterMenuBtn.classList.add("hidden");
+                    loginSection.classList.remove("hidden");
+                    masterSidebar.classList.remove("open");
+                    sidebarOverlay.classList.remove("active");
+                }
             });
         });
     </script>
