@@ -1,1 +1,82 @@
+/* Withdrawal Section Styling */
+.withdrawal-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background: linear-gradient(145deg, #1e1e1e, #141414);
+  border: 1px solid #333;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.withdrawal-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.withdrawal-header h2 {
+  color: #d4af37;
+  font-size: 28px;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.withdrawal-header p {
+  color: #aaa;
+  font-size: 14px;
+}
+
+/* Form Groups */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  color: #ccc;
+  font-size: 14px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 15px;
+  background-color: #121212;
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #d4af37;
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+}
+
+select.form-control {
+  cursor: pointer;
+}
+
+/* Submit Withdrawal Button */
+.withdraw-submit-btn {
+  background: linear-gradient(135deg, #d4af37, #aa820a);
+  color: #000;
+  border: none;
+  padding: 14px 0;
+  width: 100%;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  margin-top: 10px;
+}
+
+.withdraw-submit-btn:hover {
+  opacity: 0.9;
+}
 
