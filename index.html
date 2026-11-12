@@ -140,23 +140,26 @@
         .sidebar-overlay.active {
             display: block;
         }
+        .section-view {
+            display: none;
+        }
+        .section-view.active-view {
+            display: block;
+        }
     </style>
 </head>
 <body>
 
     <!-- Header Navigation Bar -->
     <header>
-        <!-- Left Side: Master Menu Button (Hidden until logged in) -->
         <div style="display: flex; align-items: center; gap: 15px;">
             <button class="master-menu-btn hidden" id="masterMenuBtn" type="button">
                 <span>☰ Menu</span>
             </button>
         </div>
 
-        <!-- Center: Logo -->
         <div class="logo" data-i18n="hero_title" style="color: #d4af37; font-weight: bold; font-size: 20px; letter-spacing: 1px;">LUXURY TRIP</div>
         
-        <!-- Right Side: Empty for balance -->
         <div style="width: 70px;"></div>
     </header>
 
@@ -168,16 +171,17 @@
             <button class="close-sidebar" id="closeSidebarBtn">&times;</button>
         </div>
         <ul class="sidebar-menu-list">
-            <li id="menuMembership">💎 Membership Level</li>
-            <li id="menuWithdrawal">💳 Withdrawal Account</li>
-            <li id="menuUseful">📌 Useful Links</li>
-            <li id="menuCustomer">🎧 Customer Service</li>
-            <li id="menuLanguage">🌐 Change Language</li>
-            <li id="menuLogout" style="color: #ff4d4d; border-top: 1px solid #333; margin-top: 20px; padding-top: 15px;">🚪 Logout</li>
+            <li id="navHomeBtn">🏠 Home Dashboard</li>
+            <li id="navMembershipBtn">💎 Membership Level</li>
+            <li id="navWithdrawalBtn">💳 Withdrawal Account</li>
+            <li id="navUsefulBtn">📌 Useful Links</li>
+            <li id="navCustomerBtn">🎧 Customer Service</li>
+            <li id="navLanguageBtn">🌐 Change Language</li>
+            <li id="navLogoutBtn" style="color: #ff4d4d; border-top: 1px solid #333; margin-top: 20px; padding-top: 15px;">🚪 Logout</li>
         </ul>
     </div>
 
-    <!-- 1. LOGIN SECTION (Appears first by default) -->
+    <!-- 1. LOGIN SECTION -->
     <div class="auth-container" id="loginSection">
         <h2>Member Login</h2>
         <form id="loginForm">
@@ -193,38 +197,151 @@
         </form>
     </div>
 
-    <!-- 2. DASHBOARD SECTION (Hidden until logged in) -->
-    <div class="container hidden" id="dashboardSection" style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
-        <div class="hero-section" style="text-align: center; margin-bottom: 40px;">
-            <h1 id="mainTitle" data-i18n="hero_title" style="color: #d4af37; font-size: 32px; margin-bottom: 10px;">Luxury Hotel & Resort Booking</h1>
-            <p id="mainSubtitle" data-i18n="hero_subtitle" style="color: #aaa; font-size: 16px;">Experience world-class hospitality across Asia</p>
+    <!-- 2. MAIN APP CONTAINER (Views inside Dashboard) -->
+    <div class="container hidden" id="appContainer" style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
+
+        <!-- VIEW 1: HOME DASHBOARD -->
+        <div id="homeView" class="section-view active-view">
+            <div class="hero-section" style="text-align: center; margin-bottom: 40px;">
+                <h1 id="mainTitle" data-i18n="hero_title" style="color: #d4af37; font-size: 32px; margin-bottom: 10px;">Luxury Hotel & Resort Booking</h1>
+                <p id="mainSubtitle" data-i18n="hero_subtitle" style="color: #aaa; font-size: 16px;">Experience world-class hospitality across Asia</p>
+            </div>
+
+            <div style="background: #1e1e1e; border: 1px solid #333; padding: 25px; border-radius: 12px; max-width: 500px; margin: 0 auto; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                <h3 style="color: #d4af37; margin-bottom: 15px;">ကြိုဆိုပါတယ်, Po Kaing</h3>
+                <div style="background: #121212; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #333;">
+                    <p style="color: #aaa; font-size: 13px;">အကောင့်ဝင်ငွေကျန်ငွေ (BALANCE)</p>
+                    <h2 style="color: #2ecc71; margin-top: 5px;">0 Ks</h2>
+                </div>
+                <button class="book-btn" data-i18n="btn_book" style="width: 100%; background: linear-gradient(135deg, #d4af37, #aa820a); color: #000; border: none; padding: 12px; font-weight: bold; border-radius: 6px; cursor: pointer;">Book Now</button>
+            </div>
         </div>
 
-        <div style="background: #1e1e1e; border: 1px solid #333; padding: 25px; border-radius: 12px; max-width: 500px; margin: 0 auto; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-            <h3 style="color: #d4af37; margin-bottom: 15px;">ကြိုဆိုပါတယ်, Po Kaing</h3>
-            <div style="background: #121212; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #333;">
-                <p style="color: #aaa; font-size: 13px;">အကောင့်ဝင်ငွေကျန်ငွေ (BALANCE)</p>
-                <h2 style="color: #2ecc71; margin-top: 5px;">0 Ks</h2>
+        <!-- VIEW 2: MEMBERSHIP LEVEL VIEW -->
+        <div id="membershipView" class="section-view">
+            <div class="membership-container" style="margin: 0 auto;">
+                <div class="membership-header">
+                    <h2>Membership Tiers</h2>
+                    <p>Upgrade your tier for exclusive luxury privileges</p>
+                </div>
+                <div class="membership-grid">
+                    <div class="membership-card">
+                        <h3>Standard</h3>
+                        <div class="price">Free</div>
+                        <ul class="features-list">
+                            <li>Standard Booking</li>
+                            <li>24/7 Support</li>
+                        </ul>
+                        <button class="upgrade-btn" data-level="Standard">Current Tier</button>
+                    </div>
+                    <div class="membership-card featured">
+                        <span class="badge">Popular</span>
+                        <h3>Gold VIP</h3>
+                        <div class="price">$100</div>
+                        <ul class="features-list">
+                            <li>Priority Booking</li>
+                            <li>VIP Lounge Access</li>
+                            <li>10% Discount</li>
+                        </ul>
+                        <button class="upgrade-btn" data-level="Gold VIP">Upgrade Now</button>
+                    </div>
+                </div>
             </div>
-            <button class="book-btn" data-i18n="btn_book" style="width: 100%; background: linear-gradient(135deg, #d4af37, #aa820a); color: #000; border: none; padding: 12px; font-weight: bold; border-radius: 6px; cursor: pointer;">Book Now</button>
         </div>
+
+        <!-- VIEW 3: WITHDRAWAL ACCOUNT VIEW -->
+        <div id="withdrawalView" class="section-view">
+            <div class="withdrawal-container">
+                <div class="withdrawal-header">
+                    <h2>Withdrawal Request</h2>
+                    <p>Securely transfer your funds</p>
+                </div>
+                <form id="withdrawalForm">
+                    <div class="form-group">
+                        <label>Withdrawal Amount ($)</label>
+                        <input type="number" id="withdrawAmount" class="form-control" placeholder="Enter amount" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Payment Method</label>
+                        <select id="withdrawMethod" class="form-control">
+                            <option value="bank">International Bank Transfer</option>
+                            <option value="crypto">USDT / Crypto Wallet</option>
+                            <option value="kbz">KBZ Pay / Wave Pay (MM)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Account / Wallet Details</label>
+                        <input type="text" id="withdrawAccount" class="form-control" placeholder="Enter account number or address" required>
+                    </div>
+                    <button type="submit" class="withdraw-submit-btn">Submit Withdrawal</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- VIEW 4: USEFUL LINKS VIEW -->
+        <div id="usefulView" class="section-view">
+            <div class="useful-container" style="margin: 0 auto;">
+                <div class="useful-header">
+                    <h2>Useful Links & FAQ</h2>
+                    <p>Everything you need to know about our services</p>
+                </div>
+                <div class="useful-grid">
+                    <div class="useful-card">
+                        <h3><span>📌</span> Booking Guide</h3>
+                        <p>Learn how to reserve luxury rooms easily across MM, EN, TH, JP, KR, CN, and VN platforms.</p>
+                        <a href="#" class="useful-link">Read Guide &rarr;</a>
+                    </div>
+                    <div class="useful-card">
+                        <h3><span>🛡️</span> Security Policy</h3>
+                        <p>Your data and transactions are protected with high-end encryption protocols.</p>
+                        <a href="#" class="useful-link">Learn More &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 5: CUSTOMER SERVICE VIEW -->
+        <div id="customerView" class="section-view">
+            <div style="max-width: 600px; margin: 0 auto; background: #1e1e1e; padding: 30px; border-radius: 12px; border: 1px solid #333; text-align: center;">
+                <h2 style="color: #d4af37; margin-bottom: 15px;">24/7 VIP Customer Service</h2>
+                <p style="color: #aaa; margin-bottom: 25px;">Our international support team is ready to assist you in multiple languages.</p>
+                <button class="book-btn" onclick="alert('Connecting to live agent...')">Contact Live Support</button>
+            </div>
+        </div>
+
     </div>
 
-    <!-- Script to Handle Login, Sidebar Menu & Interactions -->
+    <!-- Script to Handle Navigation & Views -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const loginSection = document.getElementById("loginSection");
-            const dashboardSection = document.getElementById("dashboardSection");
+            const appContainer = document.getElementById("appContainer");
             const masterMenuBtn = document.getElementById("masterMenuBtn");
             const masterSidebar = document.getElementById("masterSidebar");
             const sidebarOverlay = document.getElementById("sidebarOverlay");
             const closeSidebarBtn = document.getElementById("closeSidebarBtn");
             const loginForm = document.getElementById("loginForm");
 
+            // Views
+            const homeView = document.getElementById("homeView");
+            const membershipView = document.getElementById("membershipView");
+            const withdrawalView = document.getElementById("withdrawalView");
+            const usefulView = document.getElementById("usefulView");
+            const customerView = document.getElementById("customerView");
+
+            function switchView(viewElement) {
+                [homeView, membershipView, withdrawalView, usefulView, customerView].forEach(v => {
+                    v.classList.remove("active-view");
+                });
+                viewElement.classList.add("active-view");
+                masterSidebar.classList.remove("open");
+                sidebarOverlay.classList.remove("active");
+            }
+
             // Check session state on load
             if (localStorage.getItem("isLoggedIn") === "true") {
                 loginSection.classList.add("hidden");
-                dashboardSection.classList.remove("hidden");
+                appContainer.classList.remove("hidden");
                 masterMenuBtn.classList.remove("hidden");
             }
 
@@ -239,55 +356,27 @@
                     localStorage.setItem("currentUser", u);
                     
                     loginSection.classList.add("hidden");
-                    dashboardSection.classList.remove("hidden");
+                    appContainer.classList.remove("hidden");
                     masterMenuBtn.classList.remove("hidden");
+                    switchView(homeView);
                 } else {
                     alert("Please enter valid credentials.");
                 }
             });
 
-            // Sidebar Toggle Controls
-            masterMenuBtn.addEventListener("click", function() {
-                masterSidebar.classList.add("open");
-                sidebarOverlay.classList.add("active");
-            });
+            // Sidebar Toggle
+            masterMenuBtn.addEventListener("click", () => { masterSidebar.classList.add("open"); sidebarOverlay.classList.add("active"); });
+            closeSidebarBtn.addEventListener("click", () => { masterSidebar.classList.remove("open"); sidebarOverlay.classList.remove("active"); });
+            sidebarOverlay.addEventListener("click", () => { masterSidebar.classList.remove("open"); sidebarOverlay.classList.remove("active"); });
 
-            closeSidebarBtn.addEventListener("click", function() {
-                masterSidebar.classList.remove("open");
-                sidebarOverlay.classList.remove("active");
-            });
+            // Menu Navigation Actions
+            document.getElementById("navHomeBtn").addEventListener("click", () => switchView(homeView));
+            document.getElementById("navMembershipBtn").addEventListener("click", () => switchView(membershipView));
+            document.getElementById("navWithdrawalBtn").addEventListener("click", () => switchView(withdrawalView));
+            document.getElementById("navUsefulBtn").addEventListener("click", () => switchView(usefulView));
+            document.getElementById("navCustomerBtn").addEventListener("click", () => switchView(customerView));
 
-            sidebarOverlay.addEventListener("click", function() {
-                masterSidebar.classList.remove("open");
-                sidebarOverlay.classList.remove("active");
-            });
-
-            // Menu Item Actions inside Sidebar
-            document.getElementById("menuMembership").addEventListener("click", function() {
-                alert("Navigating to Membership Level...");
-                masterSidebar.classList.remove("open");
-                sidebarOverlay.classList.remove("active");
-            });
-
-            document.getElementById("menuWithdrawal").addEventListener("click", function() {
-                alert("Navigating to Withdrawal Account...");
-                masterSidebar.classList.remove("open");
-                sidebarOverlay.classList.remove("active");
-            });
-
-            document.getElementById("menuUseful").addEventListener("click", function() {
-                alert("Navigating to Useful Links...");
-                masterSidebar.classList.remove("open");
-                sidebarOverlay.classList.remove("active");
-            });
-
-            document.getElementById("menuCustomer").addEventListener("click", function() {
-                alert("Navigating to Customer Service...");
-                masterSidebar.classList.remove("open");
-                sidebarOverlay.classList.remove("active");
-            });
-
-            document.getElementById("menuLanguage").addEventListener("click", function() {
+            document.getElementById("navLanguageBtn").addEventListener("click", function() {
                 const lang = prompt("Select Language (en, mm, th, jp, kr, cn, vn):", "mm");
                 if (lang && typeof selectLanguage === "function") {
                     selectLanguage(lang);
@@ -296,11 +385,11 @@
                 sidebarOverlay.classList.remove("active");
             });
 
-            document.getElementById("menuLogout").addEventListener("click", function() {
+            document.getElementById("navLogoutBtn").addEventListener("click", function() {
                 if (confirm("Are you sure you want to log out?")) {
                     localStorage.removeItem("isLoggedIn");
                     localStorage.removeItem("currentUser");
-                    dashboardSection.classList.add("hidden");
+                    appContainer.classList.add("hidden");
                     masterMenuBtn.classList.add("hidden");
                     loginSection.classList.remove("hidden");
                     masterSidebar.classList.remove("open");
