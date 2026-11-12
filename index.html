@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title data-i18n="hero_title">LuxuryTrip - Hotel Booking</title>
+    <title>LuxuryTrip - Hotel Booking</title>
     
     <!-- Modular CSS Files -->
     <link rel="stylesheet" href="style.css">
@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="logout.css">
     
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f8f9fa; color: #1a1a1a; padding-bottom: 95px; font-size: 16px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        body { background-color: #f4f6f9; color: #111; padding-bottom: 90px; }
         .hidden { display: none !important; }
 
         /* Login Screen */
@@ -25,196 +25,206 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1000&q=80') no-repeat center center/cover;
+            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1000&q=80') no-repeat center center/cover;
             padding: 20px;
         }
         .auth-box {
             background: #ffffff;
-            border: 1px solid #ddd;
             padding: 35px;
-            border-radius: 18px;
+            border-radius: 20px;
             width: 100%;
-            max-width: 420px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
-        .auth-box h2 { color: #b8860b; text-align: center; margin-bottom: 22px; font-size: 26px; }
+        .auth-box h2 { color: #b8860b; text-align: center; margin-bottom: 24px; font-size: 24px; font-weight: 700; }
         .form-group { margin-bottom: 18px; }
-        .form-group label { display: block; color: #444; font-size: 15px; margin-bottom: 6px; font-weight: 600; }
-        .form-control { width: 100%; padding: 14px 16px; background: #f1f2f6; border: 1px solid #ccc; color: #333; border-radius: 10px; font-size: 16px; outline: none; }
+        .form-group label { display: block; color: #555; font-size: 13px; margin-bottom: 6px; font-weight: 600; }
+        .form-control { width: 100%; padding: 14px 16px; background: #f8f9fa; border: 1px solid #ddd; color: #333; border-radius: 12px; font-size: 15px; outline: none; }
         .form-control:focus { border-color: #b8860b; background: #fff; }
-        .auth-btn { width: 100%; background: linear-gradient(135deg, #d4af37, #aa820a); color: #fff; border: none; padding: 14px; font-weight: bold; border-radius: 10px; cursor: pointer; font-size: 17px; margin-top: 10px; }
+        .auth-btn { width: 100%; background: linear-gradient(135deg, #d4af37, #aa820a); color: #fff; border: none; padding: 14px; font-weight: bold; border-radius: 12px; cursor: pointer; font-size: 16px; margin-top: 10px; box-shadow: 0 4px 15px rgba(212,175,55,0.4); }
 
-        /* App Header */
+        /* App Header matching exact image */
         .app-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 18px 22px;
+            padding: 15px 20px;
             background: #ffffff;
-            border-bottom: 1px solid #eaeaea;
+            border-bottom: 1px solid #f0f0f0;
         }
-        .logo-area { display: flex; align-items: center; gap: 10px; }
-        .logo-icon { font-size: 28px; }
-        .logo-text h2 { font-size: 20px; color: #1a1a1a; font-weight: bold; }
-        .logo-text span { font-size: 12px; color: #666; }
-        .header-icons { display: flex; align-items: center; gap: 15px; }
-        .icon-btn { background: #f1f2f6; border: 1px solid #e1e2e6; color: #333; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative; font-size: 18px; }
-        .avatar-img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid #b8860b; }
+        .logo-area { display: flex; align-items: center; gap: 8px; }
+        .logo-icon { font-size: 26px; }
+        .logo-text h2 { font-size: 18px; color: #111; font-weight: 800; letter-spacing: -0.3px; }
+        .logo-text span { font-size: 10px; color: #777; font-weight: 500; }
+        .header-icons { display: flex; align-items: center; gap: 12px; }
+        .icon-btn { background: #f4f5f7; border: 1px solid #e5e7eb; color: #333; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative; font-size: 16px; }
+        .avatar-img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid #d4af37; }
 
-        /* Hero Banner */
+        /* Hero Banner matching exact image */
         .hero-banner {
-            margin: 18px 20px;
-            height: 240px;
-            border-radius: 20px;
-            background: linear-gradient(180deg, rgba(0,0,0,0.1) 10%, rgba(0,0,0,0.8) 90%), url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1000&q=80') no-repeat center center/cover;
-            padding: 24px;
+            margin: 15px 20px;
+            height: 230px;
+            border-radius: 24px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 10%, rgba(0,0,0,0.8) 85%), url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1000&q=80') no-repeat center center/cover;
+            padding: 22px;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            position: relative;
         }
-        .hero-banner h1 { font-size: 24px; color: #ffffff; margin-bottom: 6px; font-weight: bold; line-height: 1.25; }
-        .hero-banner p { font-size: 13px; color: #e0e0e0; margin-bottom: 15px; }
-        .explore-btn { background: linear-gradient(135deg, #ffd700, #daa520); color: #1a1a1a; border: none; padding: 10px 20px; border-radius: 25px; font-weight: bold; font-size: 14px; width: fit-content; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        .hero-banner h1 { font-size: 22px; color: #ffffff; margin-bottom: 6px; font-weight: 700; line-height: 1.25; }
+        .hero-banner p { font-size: 12px; color: #e2e8f0; margin-bottom: 14px; font-weight: 400; }
+        .explore-btn { background: linear-gradient(135deg, #f3e7c4, #d4af37); color: #111; border: none; padding: 8px 18px; border-radius: 20px; font-weight: 700; font-size: 12px; width: fit-content; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        .carousel-dots { position: absolute; bottom: 15px; right: 20px; display: flex; gap: 5px; }
+        .dot { width: 6px; height: 6px; background: rgba(255,255,255,0.5); border-radius: 50%; }
+        .dot.active { width: 16px; background: #d4af37; border-radius: 3px; }
 
-        /* Search Box Card */
+        /* Search Box Card matching exact image */
         .search-card {
             background: #ffffff;
-            margin: -30px 20px 20px 20px;
-            padding: 18px;
-            border-radius: 18px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border: 1px solid #eaeaea;
+            margin: -25px 20px 15px 20px;
+            padding: 16px;
+            border-radius: 20px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+            border: 1px solid #edf2f7;
             position: relative;
             z-index: 10;
         }
-        .search-grid {
+        .search-grid-top {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 10px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #edf2f7;
+            margin-bottom: 12px;
+        }
+        .search-grid-bottom {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 10px;
             margin-bottom: 14px;
-            font-size: 14px;
-            color: #555;
-            border-bottom: 1px solid #f1f2f6;
-            padding-bottom: 12px;
         }
-        .search-item { display: flex; flex-direction: column; gap: 4px; }
-        .search-item span:first-child { font-size: 11px; color: #888; text-transform: uppercase; font-weight: 600; }
-        .search-item span:last-child { font-weight: bold; color: #1a1a1a; font-size: 15px; }
+        .search-item { display: flex; flex-direction: column; gap: 2px; }
+        .search-item span:first-child { font-size: 10px; color: #718096; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
+        .search-item span:last-child { font-size: 13px; color: #1a202c; font-weight: 700; display: flex; align-items: center; justify-content: space-between; }
+        
         .search-submit-btn {
             width: 100%;
-            background: linear-gradient(135deg, #ffd700, #daa520);
-            color: #1a1a1a;
+            background: linear-gradient(135deg, #e6ca65, #b8860b);
+            color: #1a202c;
             border: none;
             padding: 14px;
             border-radius: 14px;
-            font-weight: bold;
-            font-size: 16px;
+            font-weight: 800;
+            font-size: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3);
+            box-shadow: 0 6px 20px rgba(184, 134, 11, 0.35);
         }
 
-        /* Quick Action Icons */
+        /* Quick Action Icons matching exact image */
         .quick-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-            padding: 5px 20px 20px 20px;
+            gap: 8px;
+            padding: 5px 20px 15px 20px;
             text-align: center;
         }
-        .quick-item { background: #ffffff; border: 1px solid #eaeaea; padding: 15px 6px; border-radius: 16px; cursor: pointer; transition: 0.2s; box-shadow: 0 3px 10px rgba(0,0,0,0.04); }
-        .quick-item:hover { border-color: #b8860b; background: #fffcf0; }
-        .quick-item span { font-size: 24px; display: block; margin-bottom: 6px; }
-        .quick-item p { font-size: 11px; color: #333; font-weight: 600; }
+        .quick-item { background: #ffffff; border: 1px solid #edf2f7; padding: 12px 2px; border-radius: 16px; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+        .quick-item:hover { border-color: #b8860b; }
+        .quick-item span { font-size: 20px; display: block; margin-bottom: 4px; }
+        .quick-item p { font-size: 10px; color: #2d3748; font-weight: 600; line-height: 1.2; }
 
         /* Section Headers */
-        .section-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px 12px 20px; }
-        .section-header h3 { font-size: 18px; color: #1a1a1a; font-weight: bold; }
-        .section-header a { font-size: 14px; color: #b8860b; text-decoration: none; font-weight: bold; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px 10px 20px; }
+        .section-header h3 { font-size: 16px; color: #1a202c; font-weight: 800; }
+        .section-header a { font-size: 12px; color: #1a202c; text-decoration: none; font-weight: 700; }
 
-        /* Destinations Horizontal Scroll */
+        /* Popular Destinations matching exact image */
         .destinations-scroll {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             overflow-x: auto;
             padding: 0 20px;
             scrollbar-width: none;
         }
         .destinations-scroll::-webkit-scrollbar { display: none; }
         .dest-card {
-            min-width: 150px;
-            height: 190px;
-            border-radius: 16px;
+            min-width: 135px;
+            height: 175px;
+            border-radius: 18px;
             background-size: cover;
             background-position: center;
-            padding: 15px;
+            padding: 14px;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
             position: relative;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
             cursor: pointer;
         }
-        .dest-card h4 { font-size: 16px; color: #fff; font-weight: bold; }
-        .dest-card p { font-size: 12px; color: #e0e0e0; }
+        .dest-card h4 { font-size: 14px; color: #fff; font-weight: 800; }
+        .dest-card p { font-size: 10px; color: #cbd5e0; font-weight: 500; }
 
-        /* Promo Banner */
+        /* Summer Promo Banner matching exact image */
         .promo-banner {
-            margin: 20px;
-            background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
-            border-radius: 18px;
-            padding: 20px;
+            margin: 18px 20px;
+            background: linear-gradient(135deg, #111827, #1f2937);
+            border-radius: 20px;
+            padding: 18px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Top Rated Hotel Card */
+        /* Top Rated Hotels matching exact image */
         .hotel-card {
             background: #ffffff;
             margin: 0 20px 20px 20px;
-            border-radius: 18px;
+            border-radius: 20px;
             overflow: hidden;
-            border: 1px solid #eaeaea;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+            border: 1px solid #edf2f7;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
         }
         .hotel-img {
-            height: 160px;
+            height: 150px;
             background: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80') no-repeat center center/cover;
             position: relative;
             padding: 12px;
             display: flex;
             justify-content: flex-end;
         }
-        .hotel-body { padding: 15px 18px; display: flex; justify-content: space-between; align-items: center; }
-        .hotel-info h4 { font-size: 16px; color: #1a1a1a; font-weight: bold; margin-bottom: 4px; }
-        .hotel-info p { font-size: 13px; color: #666; margin-bottom: 5px; }
+        .hotel-body { padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; }
+        .hotel-info h4 { font-size: 15px; color: #1a202c; font-weight: 800; margin-bottom: 4px; }
+        .hotel-info p { font-size: 12px; color: #4a5568; margin-bottom: 3px; font-weight: 500; }
         .hotel-price { text-align: right; }
-        .hotel-price span { font-size: 20px; font-weight: bold; color: #1a1a1a; }
-        .hotel-price small { font-size: 11px; color: #888; display: block; }
+        .hotel-price span { font-size: 18px; font-weight: 800; color: #1a202c; }
+        .hotel-price small { font-size: 10px; color: #718096; display: block; font-weight: 600; }
 
-        /* Bottom Tab Navigation */
+        /* Bottom Tab Navigation matching exact image */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
             background: #ffffff;
-            border-top: 1px solid #eaeaea;
+            border-top: 1px solid #edf2f7;
             display: flex;
             justify-content: space-around;
-            padding: 12px 0;
+            padding: 10px 0;
             z-index: 1000;
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
+            box-shadow: 0 -6px 25px rgba(0,0,0,0.06);
         }
-        .nav-tab { background: none; border: none; color: #888; font-size: 12px; text-align: center; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; }
-        .nav-tab.active { color: #b8860b; font-weight: bold; }
-        .nav-tab span { font-size: 22px; }
+        .nav-tab { background: none; border: none; color: #718096; font-size: 10px; text-align: center; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 3px; font-weight: 600; }
+        .nav-tab.active { color: #b8860b; font-weight: 800; }
+        .nav-tab span { font-size: 20px; }
 
         /* Views Container */
         .view-section { display: none; }
@@ -255,7 +265,7 @@
             </div>
             <div class="header-icons">
                 <div class="icon-btn" id="langSwitchTrigger" title="Change Language">🌐</div>
-                <div class="icon-btn" title="Notifications">🔔<span style="position: absolute; top: 6px; right: 6px; width: 8px; height: 8px; background: #ff4d4d; border-radius: 50%;"></span></div>
+                <div class="icon-btn" title="Notifications">🔔<span style="position: absolute; top: 4px; right: 4px; width: 7px; height: 7px; background: #ff4d4d; border-radius: 50%;"></span></div>
                 <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" class="avatar-img" alt="Profile">
             </div>
         </div>
@@ -264,31 +274,37 @@
         <div id="homeView" class="view-section active-view">
             <!-- Hero Banner -->
             <div class="hero-banner">
-                <h1>Luxury Stays, Unforgettable Journeys</h1>
+                <h1>Luxury Stays,<br>Unforgettable Journeys</h1>
                 <p>Book premium hotels around the world with ease.</p>
                 <button class="explore-btn" onclick="switchTab('membershipView', document.querySelectorAll('.nav-tab')[1])">Explore Hotels &rarr;</button>
+                <div class="carousel-dots">
+                    <div class="dot active"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
             </div>
 
-            <!-- Search Card -->
+            <!-- Search Card matching exact image -->
             <div class="search-card">
-                <div class="search-grid">
+                <div class="search-grid-top">
                     <div class="search-item">
                         <span>Destination</span>
-                        <span>📍 e.g. Yangon &or;</span>
+                        <span>📍 e.g. Yangon <span>&or;</span></span>
                     </div>
                     <div class="search-item">
                         <span>Check In</span>
-                        <span>📅 Jun 15 &or;</span>
+                        <span>📅 Jun 15 <span>&or;</span></span>
                     </div>
                 </div>
-                <div class="search-grid" style="border-bottom: none; margin-bottom: 14px; padding-bottom: 0;">
+                <div class="search-grid-bottom">
                     <div class="search-item">
                         <span>Check Out</span>
-                        <span>📅 Jun 18 &or;</span>
+                        <span>📅 Jun 18 <span>&or;</span></span>
                     </div>
                     <div class="search-item">
                         <span>Guests</span>
-                        <span>👤 2 Adults &or;</span>
+                        <span>👤 2 Adults <span>&or;</span></span>
                     </div>
                 </div>
                 <button class="search-submit-btn" onclick="alert('Searching luxury hotels...')">
@@ -304,19 +320,19 @@
                 </div>
                 <div class="quick-item" onclick="switchTab('membershipView', document.querySelectorAll('.nav-tab')[1])">
                     <span>💎</span>
-                    <p>Luxury</p>
+                    <p>Luxury Hotels</p>
                 </div>
                 <div class="quick-item" onclick="switchTab('usefulView', document.querySelectorAll('.nav-tab')[3])">
                     <span>✈️</span>
-                    <p>Packages</p>
+                    <p>Travel Packages</p>
                 </div>
                 <div class="quick-item" onclick="switchTab('membershipView', document.querySelectorAll('.nav-tab')[1])">
                     <span>🎁</span>
-                    <p>Rewards</p>
+                    <p>Member Rewards</p>
                 </div>
                 <div class="quick-item" onclick="switchTab('customerView', document.querySelectorAll('.nav-tab')[4])">
                     <span>🎧</span>
-                    <p>Support</p>
+                    <p>24/7 Support</p>
                 </div>
             </div>
 
@@ -326,19 +342,19 @@
                 <a href="#" onclick="switchTab('membershipView', document.querySelectorAll('.nav-tab')[1])">See All &rarr;</a>
             </div>
             <div class="destinations-scroll">
-                <div class="dest-card" style="background-image: linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1584646098378-0874589d76b1?auto=format&fit=crop&w=500&q=80');">
+                <div class="dest-card" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1584646098378-0874589d76b1?auto=format&fit=crop&w=500&q=80');">
                     <h4>Yangon</h4>
                     <p>Myanmar</p>
                 </div>
-                <div class="dest-card" style="background-image: linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=500&q=80');">
+                <div class="dest-card" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=500&q=80');">
                     <h4>Bangkok</h4>
                     <p>Thailand</p>
                 </div>
-                <div class="dest-card" style="background-image: linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=500&q=80');">
+                <div class="dest-card" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=500&q=80');">
                     <h4>Singapore</h4>
                     <p>Singapore</p>
                 </div>
-                <div class="dest-card" style="background-image: linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=500&q=80');">
+                <div class="dest-card" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=500&q=80');">
                     <h4>Tokyo</h4>
                     <p>Japan</p>
                 </div>
@@ -347,9 +363,9 @@
             <!-- Promo Banner -->
             <div class="promo-banner">
                 <div>
-                    <span style="background: #ffd700; color: #1a1a1a; font-size: 10px; font-weight: bold; padding: 4px 10px; border-radius: 6px;">Up to 50% OFF</span>
-                    <h4 style="color: #fff; font-size: 17px; margin-top: 8px;">Summer Luxury Sale</h4>
-                    <p style="color: #bbb; font-size: 12px;">Book now and save up to 50% on premium hotels!</p>
+                    <span style="background: linear-gradient(135deg, #ffd700, #daa520); color: #111; font-size: 9px; font-weight: 800; padding: 3px 8px; border-radius: 4px;">Up to 50% OFF</span>
+                    <h4 style="color: #fff; font-size: 15px; margin-top: 6px; font-weight: 800;">Summer Luxury Sale</h4>
+                    <p style="color: #9ca3af; font-size: 11px;">Book now and save up to 50% on premium hotels!</p>
                 </div>
                 <button class="explore-btn" onclick="switchTab('withdrawalView', document.querySelectorAll('.nav-tab')[2])">Book Now &rarr;</button>
             </div>
@@ -362,13 +378,13 @@
             
             <div class="hotel-card">
                 <div class="hotel-img">
-                    <div style="background: rgba(0,0,0,0.6); padding: 6px 10px; border-radius: 20px; color: #fff; font-size: 14px; height: fit-content;">❤️</div>
+                    <div style="background: rgba(0,0,0,0.5); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 14px;">❤️</div>
                 </div>
                 <div class="hotel-body">
                     <div class="hotel-info">
                         <h4>Sule Shangri-La Yangon</h4>
-                        <p>⭐ 4.8 (12K reviews)</p>
-                        <p style="font-size: 11px; color: #888;">📍 Yangon, Myanmar</p>
+                        <p>⭐ 4.8 <span style="color:#718096">(12K reviews)</span></p>
+                        <p style="font-size: 11px; color: #718096;">📍 Yangon, Myanmar</p>
                     </div>
                     <div class="hotel-price">
                         <span>$120</span> <small>/ night</small>
@@ -380,12 +396,12 @@
         <!-- VIEW 2: HOTELS / MEMBERSHIP -->
         <div id="membershipView" class="view-section">
             <div style="padding: 20px;">
-                <h2 style="color: #b8860b; margin-bottom: 12px; font-size: 22px;">Membership & Hotels</h2>
-                <p style="color: #666; font-size: 14px; margin-bottom: 20px;">Upgrade your status for exclusive privileges.</p>
-                <div style="background: #ffffff; border: 1px solid #eaeaea; padding: 24px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-                    <h3 style="color: #1a1a1a; font-size: 20px;">Gold VIP Tier</h3>
-                    <p style="color: #b8860b; font-size: 20px; font-weight: bold; margin: 12px 0;">$100 / lifetime</p>
-                    <button class="explore-btn" onclick="alert('Upgraded successfully!')">Upgrade Now</button>
+                <h2 style="color: #b8860b; margin-bottom: 12px; font-size: 22px; font-weight: 800;">Membership & Hotels</h2>
+                <p style="color: #4a5568; font-size: 14px; margin-bottom: 20px;">Upgrade your status for exclusive privileges.</p>
+                <div style="background: #ffffff; border: 1px solid #edf2f7; padding: 24px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                    <h3 style="color: #1a202c; font-size: 20px; font-weight: 800;">Gold VIP Tier</h3>
+                    <p style="color: #b8860b; font-size: 20px; font-weight: 800; margin: 12px 0;">$100 / lifetime</p>
+                    <button class="explore-btn" style="padding: 12px 24px; font-size: 14px;" onclick="alert('Upgraded successfully!')">Upgrade Now</button>
                 </div>
             </div>
         </div>
@@ -393,9 +409,9 @@
         <!-- VIEW 3: WITHDRAWAL -->
         <div id="withdrawalView" class="view-section">
             <div style="padding: 20px;">
-                <h2 style="color: #b8860b; margin-bottom: 12px; font-size: 22px;">Withdrawal Account</h2>
-                <p style="color: #666; font-size: 14px; margin-bottom: 20px;">Transfer your earnings securely.</p>
-                <div style="background: #ffffff; border: 1px solid #eaeaea; padding: 24px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                <h2 style="color: #b8860b; margin-bottom: 12px; font-size: 22px; font-weight: 800;">Withdrawal Account</h2>
+                <p style="color: #4a5568; font-size: 14px; margin-bottom: 20px;">Transfer your earnings securely.</p>
+                <div style="background: #ffffff; border: 1px solid #edf2f7; padding: 24px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
                     <div class="form-group">
                         <label>Amount ($)</label>
                         <input type="number" class="form-control" placeholder="0.00">
@@ -416,11 +432,11 @@
         <!-- VIEW 4: USEFUL -->
         <div id="usefulView" class="view-section">
             <div style="padding: 20px;">
-                <h2 style="color: #b8860b; margin-bottom: 12px; font-size: 22px;">Useful Links & FAQ</h2>
-                <p style="color: #666; font-size: 14px; margin-bottom: 20px;">Guides for MM, EN, TH, JP, KR, CN, VN users.</p>
-                <div style="background: #ffffff; border: 1px solid #eaeaea; padding: 20px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-                    <h4 style="color: #1a1a1a; font-size: 18px;">📌 Booking Guide</h4>
-                    <p style="color: #666; font-size: 13px; margin-top: 5px;">Learn how to book multi-language luxury suites.</p>
+                <h2 style="color: #b8860b; margin-bottom: 12px; font-size: 22px; font-weight: 800;">Useful Links & FAQ</h2>
+                <p style="color: #4a5568; font-size: 14px; margin-bottom: 20px;">Guides for MM, EN, TH, JP, KR, CN, VN users.</p>
+                <div style="background: #ffffff; border: 1px solid #edf2f7; padding: 20px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                    <h4 style="color: #1a202c; font-size: 18px; font-weight: 800;">📌 Booking Guide</h4>
+                    <p style="color: #4a5568; font-size: 13px; margin-top: 5px;">Learn how to book multi-language luxury suites.</p>
                 </div>
             </div>
         </div>
@@ -428,14 +444,14 @@
         <!-- VIEW 5: MORE / CUSTOMER -->
         <div id="customerView" class="view-section">
             <div style="padding: 20px; text-align: center;">
-                <h2 style="color: #b8860b; margin-bottom: 12px; font-size: 22px;">Customer Service & More</h2>
-                <p style="color: #666; font-size: 14px; margin-bottom: 20px;">24/7 Support across Asia.</p>
-                <button class="explore-btn" style="width: 100%; margin-bottom: 15px; padding: 14px; font-size: 16px; border-radius: 12px;" onclick="alert('Connecting to live agent...')">Contact Live Support</button>
-                <button class="auth-btn" style="background: #ff4d4d; color: #fff;" id="logoutTrigger">Log Out</button>
+                <h2 style="color: #b8860b; margin-bottom: 12px; font-size: 22px; font-weight: 800;">Customer Service & More</h2>
+                <p style="color: #4a5568; font-size: 14px; margin-bottom: 20px;">24/7 Support across Asia.</p>
+                <button class="explore-btn" style="width: 100%; margin-bottom: 15px; padding: 14px; font-size: 15px; border-radius: 14px; display: block; text-align: center;" onclick="alert('Connecting to live agent...')">Contact Live Support</button>
+                <button class="auth-btn" style="background: #ef4444; color: #fff; box-shadow: 0 4px 15px rgba(239,68,68,0.4);" id="logoutTrigger">Log Out</button>
             </div>
         </div>
 
-        <!-- Bottom Tab Navigation -->
+        <!-- Bottom Tab Navigation matching exact image -->
         <div class="bottom-nav">
             <button class="nav-tab active" onclick="switchTab('homeView', this)">
                 <span>🏠</span>
