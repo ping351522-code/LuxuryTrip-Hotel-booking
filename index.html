@@ -1,544 +1,190 @@
 <!DOCTYPE html>
-<html lang="my">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LuxuryTrip - Hotel Booking</title>
-    
-    <!-- Modular CSS Files -->
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="customer.css">
-    <link rel="stylesheet" href="language.css">
-    <link rel="stylesheet" href="membership.css">
-    <link rel="stylesheet" href="withdrawal.css">
-    <link rel="stylesheet" href="useful.css">
-    <link rel="stylesheet" href="logout.css">
-    
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
-        body { background-color: #f4f6f9; color: #111; padding-bottom: 90px; }
-        .hidden { display: none !important; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LuxuryTrip – Hotel Booking</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0b1a4a; --navy-2:#13296b; --gold:#e8b94a; --gold-2:#f6d27a; --gold-3:#c9962b;
+  --bg:#f3f4fb; --card:#fff; --text:#0f1b4d; --muted:#5b6485;
+  /* ====== Replace these with your own image paths ====== */
+  --img-hero:none; --img-yangon:none; --img-bangkok:none; --img-singapore:none; --img-tokyo:none; --img-sale:none; --img-hotel:none;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:#dfe2f0;color:var(--text);display:flex;justify-content:center}
+.app{width:100%;max-width:430px;min-height:100vh;background:var(--bg);position:relative;padding-bottom:96px;overflow:hidden}
+button{font:inherit;border:0;cursor:pointer;background:none;color:inherit}
+.serif{font-family:'Cormorant Garamond',Georgia,serif}
 
-        /* Login Screen */
-        .auth-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1000&q=80') no-repeat center center/cover;
-            padding: 20px;
-        }
-        .auth-box {
-            background: #ffffff;
-            padding: 35px;
-            border-radius: 20px;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
-        .auth-box h2 { color: #b8860b; text-align: center; margin-bottom: 24px; font-size: 24px; font-weight: 700; }
-        .form-group { margin-bottom: 18px; }
-        .form-group label { display: block; color: #555; font-size: 13px; margin-bottom: 6px; font-weight: 600; }
-        .form-control { width: 100%; padding: 14px 16px; background: #f8f9fa; border: 1px solid #ddd; color: #333; border-radius: 12px; font-size: 15px; outline: none; }
-        .form-control:focus { border-color: #b8860b; background: #fff; }
-        .auth-btn { width: 100%; background: linear-gradient(135deg, #d4af37, #aa820a); color: #fff; border: none; padding: 14px; font-weight: bold; border-radius: 12px; cursor: pointer; font-size: 16px; margin-top: 10px; box-shadow: 0 4px 15px rgba(212,175,55,0.4); }
+/* HERO */
+.hero{position:relative;height:300px;padding:calc(env(safe-area-inset-top,0px) + 18px) 22px 0;color:#fff;border-radius:0 0 34px 34px;
+  background:var(--img-hero),linear-gradient(160deg,#0a1650 0%,#1b2f7c 40%,#c76b5a 78%,#f0a56a 100%);background-size:cover;background-position:right center}
+.hero::before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(90deg,rgba(8,18,66,.85) 0%,rgba(8,18,66,.35) 60%,transparent 100%)}
+.hero>*{position:relative}
+.topbar{display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:8px}
+.logo svg{width:44px;height:36px}
+.logo b{display:block;font-family:'Cormorant Garamond',serif;font-size:27px;line-height:1;color:var(--gold-2);font-weight:600}
+.logo small{font-size:12px;color:#dfe5ff}
+.top-right{display:flex;align-items:center;gap:14px}
+.bell{position:relative;width:28px;height:28px}
+.bell svg{width:26px;height:26px}
+.bell i{position:absolute;top:-6px;right:-8px;background:#e53935;color:#fff;font:700 10px/16px Inter;width:17px;height:17px;border-radius:50%;text-align:center}
+.avatar{width:40px;height:40px;border-radius:50%;border:2px solid #fff;background:linear-gradient(135deg,#9db4ff,#4a63c9)}
+.hero h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:34px;line-height:1.05;margin-top:36px;max-width:210px}
+.hero h1 span{color:var(--gold)}
+.hero p{font-size:13px;margin-top:8px;max-width:190px;color:#e6eaff}
+.btn-gold{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:10px 18px;border-radius:12px;font-weight:600;font-size:14px;color:var(--navy);
+  background:linear-gradient(180deg,var(--gold-2),var(--gold) 60%,var(--gold-3));box-shadow:0 6px 14px rgba(201,150,43,.35)}
+.dots{position:absolute;left:50%;bottom:34px;transform:translateX(-50%);display:flex;gap:7px}
+.dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.55)}
+.dots i.on{background:var(--gold);width:24px;border-radius:6px}
 
-        /* App Header matching exact image */
-        .app-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            background: #ffffff;
-            border-bottom: 1px solid #f0f0f0;
-        }
-        .logo-area { display: flex; align-items: center; gap: 8px; }
-        .logo-icon { font-size: 26px; }
-        .logo-text h2 { font-size: 18px; color: #111; font-weight: 800; letter-spacing: -0.3px; }
-        .logo-text span { font-size: 10px; color: #777; font-weight: 500; }
-        .header-icons { display: flex; align-items: center; gap: 12px; }
-        .icon-btn { background: #f4f5f7; border: 1px solid #e5e7eb; color: #333; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative; font-size: 16px; }
-        .avatar-img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid #d4af37; }
+/* SEARCH */
+.search{position:relative;margin:-26px 12px 0;background:#fff;border-radius:20px;padding:12px 10px 12px;box-shadow:0 10px 28px rgba(20,35,100,.14)}
+.fields{display:grid;grid-template-columns:1.15fr 1fr 1fr .95fr;align-items:center}
+.f{display:flex;gap:5px;align-items:center;padding:2px 6px;border-right:1px solid #e6e8f2;min-width:0}
+.f:last-child{border:0}
+.f svg{width:20px;height:20px;flex:none;stroke:var(--navy);fill:none;stroke-width:1.8}
+.f small{display:block;font-size:10.5px;color:var(--muted)}
+.f b{display:block;font-size:10.5px;font-weight:500;white-space:nowrap}
+.f b::after{content:" ⌄";font-size:10px}
+.search .btn-search{width:100%;margin-top:12px;padding:13px;border-radius:14px;font-weight:600;font-size:16px;color:var(--navy);display:flex;gap:8px;justify-content:center;align-items:center;
+  background:linear-gradient(180deg,var(--gold-2),var(--gold) 55%,var(--gold-3))}
 
-        /* Hero Banner matching exact image */
-        .hero-banner {
-            margin: 15px 20px;
-            height: 230px;
-            border-radius: 24px;
-            background: linear-gradient(180deg, rgba(0,0,0,0.1) 10%, rgba(0,0,0,0.8) 85%), url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1000&q=80') no-repeat center center/cover;
-            padding: 22px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            position: relative;
-        }
-        .hero-banner h1 { font-size: 22px; color: #ffffff; margin-bottom: 6px; font-weight: 700; line-height: 1.25; }
-        .hero-banner p { font-size: 12px; color: #e2e8f0; margin-bottom: 14px; font-weight: 400; }
-        .explore-btn { background: linear-gradient(135deg, #f3e7c4, #d4af37); color: #111; border: none; padding: 8px 18px; border-radius: 20px; font-weight: 700; font-size: 12px; width: fit-content; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-        .carousel-dots { position: absolute; bottom: 15px; right: 20px; display: flex; gap: 5px; }
-        .dot { width: 6px; height: 6px; background: rgba(255,255,255,0.5); border-radius: 50%; }
-        .dot.active { width: 16px; background: #d4af37; border-radius: 3px; }
+/* QUICK */
+.quick{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:14px 12px 0}
+.q{background:#fff;border-radius:14px;padding:12px 2px 10px;text-align:center;font-size:11.5px;font-weight:500;line-height:1.25;box-shadow:0 2px 8px rgba(20,35,100,.05)}
+.q svg{width:30px;height:30px;display:block;margin:0 auto 6px;fill:var(--navy)}
 
-        /* Search Box Card matching exact image */
-        .search-card {
-            background: #ffffff;
-            margin: -25px 20px 15px 20px;
-            padding: 16px;
-            border-radius: 20px;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-            border: 1px solid #edf2f7;
-            position: relative;
-            z-index: 10;
-        }
-        .search-grid-top {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 10px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid #edf2f7;
-            margin-bottom: 12px;
-        }
-        .search-grid-bottom {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 14px;
-        }
-        .search-item { display: flex; flex-direction: column; gap: 2px; }
-        .search-item span:first-child { font-size: 10px; color: #718096; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
-        .search-item span:last-child { font-size: 13px; color: #1a202c; font-weight: 700; display: flex; align-items: center; justify-content: space-between; }
-        
-        .search-submit-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #e6ca65, #b8860b);
-            color: #1a202c;
-            border: none;
-            padding: 14px;
-            border-radius: 14px;
-            font-weight: 800;
-            font-size: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            cursor: pointer;
-            box-shadow: 0 6px 20px rgba(184, 134, 11, 0.35);
-        }
+/* SECTIONS */
+.sec{display:flex;align-items:center;justify-content:space-between;margin:22px 14px 10px}
+.sec h2{display:flex;align-items:center;gap:8px;font-size:20px;font-weight:700}
+.sec h2 svg{width:22px;height:22px;fill:var(--gold-3)}
+.sec a{font-size:13.5px;font-weight:600;color:var(--navy);text-decoration:none}
+.dest{display:flex;gap:10px;padding:0 12px;overflow-x:auto;scrollbar-width:none}
+.dest::-webkit-scrollbar{display:none}
+.d{flex:none;width:100px;height:112px;border-radius:14px;position:relative;color:#fff;overflow:hidden;background-size:cover;background-position:center}
+.d::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 45%,rgba(5,10,40,.85))}
+.d div{position:absolute;left:8px;bottom:8px;z-index:1;font-size:12.5px;font-weight:600;line-height:1.2;display:flex;gap:4px;align-items:center}
+.d small{display:block;font-weight:400;font-size:12px}
+.d:nth-child(1){background-image:var(--img-yangon),linear-gradient(180deg,#f2a65a,#3b3a7a)}
+.d:nth-child(2){background-image:var(--img-bangkok),linear-gradient(180deg,#e9b36a,#24357a)}
+.d:nth-child(3){background-image:var(--img-singapore),linear-gradient(180deg,#4a6bd6,#14214f)}
+.d:nth-child(4){background-image:var(--img-tokyo),linear-gradient(180deg,#8fb2ff,#e7a3c4)}
 
-        /* Quick Action Icons matching exact image */
-        .quick-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 8px;
-            padding: 5px 20px 15px 20px;
-            text-align: center;
-        }
-        .quick-item { background: #ffffff; border: 1px solid #edf2f7; padding: 12px 2px; border-radius: 16px; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
-        .quick-item:hover { border-color: #b8860b; }
-        .quick-item span { font-size: 20px; display: block; margin-bottom: 4px; }
-        .quick-item p { font-size: 10px; color: #2d3748; font-weight: 600; line-height: 1.2; }
+/* SALE */
+.sale{position:relative;margin:20px 12px 0;height:100px;border-radius:18px;color:#fff;padding:26px 16px 0;overflow:hidden;
+  background:var(--img-sale),linear-gradient(100deg,#0b1a4a 40%,#2d4aa8 100%);background-size:cover}
+.sale .tag{position:absolute;left:12px;top:0;background:linear-gradient(180deg,var(--gold-2),var(--gold));color:var(--navy);font-weight:700;font-size:15px;padding:4px 14px 6px;border-radius:0 0 12px 12px}
+.sale h3{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;margin-top:6px;line-height:1}
+.sale p{font-size:12px;margin-top:4px}
+.sale .btn-gold{margin-top:6px;padding:6px 14px;font-size:13px}
 
-        /* Section Headers */
-        .section-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px 10px 20px; }
-        .section-header h3 { font-size: 16px; color: #1a202c; font-weight: 800; }
-        .section-header a { font-size: 12px; color: #1a202c; text-decoration: none; font-weight: 700; }
+/* HOTEL */
+.hotel{display:flex;gap:12px;margin:0 12px;background:#fff;border-radius:16px;padding:0 10px 0 0;align-items:center;overflow:hidden;box-shadow:0 2px 10px rgba(20,35,100,.06)}
+.hotel .pic{width:116px;height:64px;flex:none;background:var(--img-hotel),linear-gradient(135deg,#4d9ed1,#1a3a6e);background-size:cover}
+.hotel .info{flex:1;min-width:0}
+.hotel h4{font-size:15px;font-weight:600}
+.hotel .r,.hotel .l{font-size:12.5px;color:var(--muted);margin-top:3px}
+.hotel .r b{color:var(--text);font-weight:500}
+.hotel .r em{color:var(--gold-3);font-style:normal}
+.price{display:flex;align-items:center;gap:8px;background:#fff4d9;border-radius:30px;padding:4px 4px 4px 12px;font-size:12px;color:var(--muted)}
+.price b{font-size:17px;color:var(--text)}
+.price i{width:34px;height:34px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-style:normal}
 
-        /* Popular Destinations matching exact image */
-        .destinations-scroll {
-            display: flex;
-            gap: 12px;
-            overflow-x: auto;
-            padding: 0 20px;
-            scrollbar-width: none;
-        }
-        .destinations-scroll::-webkit-scrollbar { display: none; }
-        .dest-card {
-            min-width: 135px;
-            height: 175px;
-            border-radius: 18px;
-            background-size: cover;
-            background-position: center;
-            padding: 14px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            position: relative;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-            cursor: pointer;
-        }
-        .dest-card h4 { font-size: 14px; color: #fff; font-weight: 800; }
-        .dest-card p { font-size: 10px; color: #cbd5e0; font-weight: 500; }
-
-        /* Summer Promo Banner matching exact image */
-        .promo-banner {
-            margin: 18px 20px;
-            background: linear-gradient(135deg, #111827, #1f2937);
-            border-radius: 20px;
-            padding: 18px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Top Rated Hotels matching exact image */
-        .hotel-card {
-            background: #ffffff;
-            margin: 0 20px 20px 20px;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid #edf2f7;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
-        }
-        .hotel-img {
-            height: 150px;
-            background: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80') no-repeat center center/cover;
-            position: relative;
-            padding: 12px;
-            display: flex;
-            justify-content: flex-end;
-        }
-        .hotel-body { padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; }
-        .hotel-info h4 { font-size: 15px; color: #1a202c; font-weight: 800; margin-bottom: 4px; }
-        .hotel-info p { font-size: 12px; color: #4a5568; margin-bottom: 3px; font-weight: 500; }
-        .hotel-price { text-align: right; }
-        .hotel-price span { font-size: 18px; font-weight: 800; color: #1a202c; }
-        .hotel-price small { font-size: 10px; color: #718096; display: block; font-weight: 600; }
-
-        /* Bottom Tab Navigation matching exact image */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: #ffffff;
-            border-top: 1px solid #edf2f7;
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-            z-index: 1000;
-            box-shadow: 0 -6px 25px rgba(0,0,0,0.06);
-        }
-        .nav-tab { background: none; border: none; color: #718096; font-size: 10px; text-align: center; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 3px; font-weight: 600; }
-        .nav-tab.active { color: #b8860b; font-weight: 800; }
-        .nav-tab span { font-size: 20px; }
-
-        /* Views Container */
-        .view-section { display: none; }
-        .view-section.active-view { display: block; }
-    </style>
+/* NAV */
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:var(--navy);border-radius:22px 22px 0 0;display:grid;grid-template-columns:repeat(5,1fr);padding:12px 4px calc(env(safe-area-inset-bottom,0px) + 14px)}
+.nav a{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11.5px;color:#b8c0e6;text-decoration:none;padding-bottom:4px}
+.nav a svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.6}
+.nav a.on{color:var(--gold);border-bottom:2px solid var(--gold);margin:0 8px;font-weight:600}
+.nav a.on svg{fill:var(--gold)}
+@media (prefers-reduced-motion:no-preference){button,.q,.d{transition:transform .15s}button:active,.q:active,.d:active{transform:scale(.97)}}
+</style>
 </head>
 <body>
+<div class="app">
 
-    <!-- 1. LOGIN SCREEN -->
-    <div class="auth-wrapper" id="loginSection">
-        <div class="auth-box">
-            <h2>LuxuryTrip Login</h2>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" id="loginUser" class="form-control" placeholder="Enter username" required>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="loginPass" class="form-control" placeholder="Enter password" required>
-                </div>
-                <button type="submit" class="auth-btn">Sign In</button>
-            </form>
+  <!-- HERO -->
+  <header class="hero">
+    <div class="topbar">
+      <div class="logo">
+        <svg viewBox="0 0 48 38" fill="#e8b94a"><path d="M3 12l9 8 12-16 12 16 9-8-4 24H7z"/></svg>
+        <div><b>LuxuryTrip</b><small>Hotel Booking</small></div>
+      </div>
+      <div class="top-right">
+        <div class="bell">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M6 17V11a6 6 0 1112 0v6l2 2H4zM10 21h4"/></svg>
+          <i>3</i>
         </div>
+        <div class="avatar"></div>
+      </div>
     </div>
+    <h1>Luxury Stays, Unforgettable <span>Journeys</span></h1>
+    <p>Book premium hotels around the world with ease.</p>
+    <button class="btn-gold">Explore Hotels <span>→</span></button>
+    <div class="dots"><i class="on"></i><i></i><i></i><i></i></div>
+  </header>
 
-    <!-- 2. MAIN APP CONTAINER -->
-    <div class="hidden" id="appContainer">
-
-        <!-- App Header -->
-        <div class="app-header">
-            <div class="logo-area">
-                <div class="logo-icon">👑</div>
-                <div class="logo-text">
-                    <h2>LuxuryTrip</h2>
-                    <span>Hotel Booking</span>
-                </div>
-            </div>
-            <div class="header-icons">
-                <div class="icon-btn" id="langSwitchTrigger" title="Change Language">🌐</div>
-                <div class="icon-btn" title="Notifications">🔔<span style="position: absolute; top: 4px; right: 4px; width: 7px; height: 7px; background: #ff4d4d; border-radius: 50%;"></span></div>
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" class="avatar-img" alt="Profile">
-            </div>
-        </div>
-
-        <!-- VIEW 1: HOME -->
-        <div id="homeView" class="view-section active-view">
-            <!-- Hero Banner -->
-            <div class="hero-banner">
-                <h1>Luxury Stays,<br>Unforgettable Journeys</h1>
-                <p>Book premium hotels around the world with ease.</p>
-                <button class="explore-btn" onclick="switchTab('membershipView', document.querySelectorAll('.nav-tab')[1])">Explore Hotels &rarr;</button>
-                <div class="carousel-dots">
-                    <div class="dot active"></div>
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                </div>
-            </div>
-
-            <!-- Search Card matching exact image -->
-            <div class="search-card">
-                <div class="search-grid-top">
-                    <div class="search-item">
-                        <span>Destination</span>
-                        <span>📍 e.g. Yangon <span>&or;</span></span>
-                    </div>
-                    <div class="search-item">
-                        <span>Check In</span>
-                        <span>📅 Jun 15 <span>&or;</span></span>
-                    </div>
-                </div>
-                <div class="search-grid-bottom">
-                    <div class="search-item">
-                        <span>Check Out</span>
-                        <span>📅 Jun 18 <span>&or;</span></span>
-                    </div>
-                    <div class="search-item">
-                        <span>Guests</span>
-                        <span>👤 2 Adults <span>&or;</span></span>
-                    </div>
-                </div>
-                <button class="search-submit-btn" onclick="alert('Searching luxury hotels...')">
-                    <span>🔍</span> Search Hotels
-                </button>
-            </div>
-
-            <!-- Quick Action Icons -->
-            <div class="quick-grid">
-                <div class="quick-item" onclick="switchTab('membershipView', document.querySelectorAll('.nav-tab')[1])">
-                    <span>⭐</span>
-                    <p>Best Deals</p>
-                </div>
-                <div class="quick-item" onclick="switchTab('membershipView', document.querySelectorAll('.nav-tab')[1])">
-                    <span>💎</span>
-                    <p>Luxury Hotels</p>
-                </div>
-                <div class="quick-item" onclick="switchTab('usefulView', document.querySelectorAll('.nav-tab')[3])">
-                    <span>✈️</span>
-                    <p>Travel Packages</p>
-                </div>
-                <div class="quick-item" onclick="switchTab('membershipView', document.querySelectorAll('.nav-tab')[1])">
-                    <span>🎁</span>
-                    <p>Member Rewards</p>
-                </div>
-                <div class="quick-item" onclick="switchTab('customerView', document.querySelectorAll('.nav-tab')[4])">
-                    <span>🎧</span>
-                    <p>24/7 Support</p>
-                </div>
-            </div>
-
-            <!-- Popular Destinations -->
-            <div class="section-header">
-                <h3>Popular Destinations</h3>
-                <a href="#" onclick="switchTab('membershipView', document.querySelectorAll('.nav-tab')[1])">See All &rarr;</a>
-            </div>
-            <div class="destinations-scroll">
-                <div class="dest-card" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1584646098378-0874589d76b1?auto=format&fit=crop&w=500&q=80');">
-                    <h4>Yangon</h4>
-                    <p>Myanmar</p>
-                </div>
-                <div class="dest-card" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=500&q=80');">
-                    <h4>Bangkok</h4>
-                    <p>Thailand</p>
-                </div>
-                <div class="dest-card" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=500&q=80');">
-                    <h4>Singapore</h4>
-                    <p>Singapore</p>
-                </div>
-                <div class="dest-card" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=500&q=80');">
-                    <h4>Tokyo</h4>
-                    <p>Japan</p>
-                </div>
-            </div>
-
-            <!-- Promo Banner -->
-            <div class="promo-banner">
-                <div>
-                    <span style="background: linear-gradient(135deg, #ffd700, #daa520); color: #111; font-size: 9px; font-weight: 800; padding: 3px 8px; border-radius: 4px;">Up to 50% OFF</span>
-                    <h4 style="color: #fff; font-size: 15px; margin-top: 6px; font-weight: 800;">Summer Luxury Sale</h4>
-                    <p style="color: #9ca3af; font-size: 11px;">Book now and save up to 50% on premium hotels!</p>
-                </div>
-                <button class="explore-btn" onclick="switchTab('withdrawalView', document.querySelectorAll('.nav-tab')[2])">Book Now &rarr;</button>
-            </div>
-
-            <!-- Top Rated Hotels Section -->
-            <div class="section-header">
-                <h3>Top Rated Hotels</h3>
-                <a href="#" onclick="switchTab('membershipView', document.querySelectorAll('.nav-tab')[1])">See All &rarr;</a>
-            </div>
-            
-            <div class="hotel-card">
-                <div class="hotel-img">
-                    <div style="background: rgba(0,0,0,0.5); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 14px;">❤️</div>
-                </div>
-                <div class="hotel-body">
-                    <div class="hotel-info">
-                        <h4>Sule Shangri-La Yangon</h4>
-                        <p>⭐ 4.8 <span style="color:#718096">(12K reviews)</span></p>
-                        <p style="font-size: 11px; color: #718096;">📍 Yangon, Myanmar</p>
-                    </div>
-                    <div class="hotel-price">
-                        <span>$120</span> <small>/ night</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- VIEW 2: HOTELS / MEMBERSHIP -->
-        <div id="membershipView" class="view-section">
-            <div style="padding: 20px;">
-                <h2 style="color: #b8860b; margin-bottom: 12px; font-size: 22px; font-weight: 800;">Membership & Hotels</h2>
-                <p style="color: #4a5568; font-size: 14px; margin-bottom: 20px;">Upgrade your status for exclusive privileges.</p>
-                <div style="background: #ffffff; border: 1px solid #edf2f7; padding: 24px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-                    <h3 style="color: #1a202c; font-size: 20px; font-weight: 800;">Gold VIP Tier</h3>
-                    <p style="color: #b8860b; font-size: 20px; font-weight: 800; margin: 12px 0;">$100 / lifetime</p>
-                    <button class="explore-btn" style="padding: 12px 24px; font-size: 14px;" onclick="alert('Upgraded successfully!')">Upgrade Now</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- VIEW 3: WITHDRAWAL -->
-        <div id="withdrawalView" class="view-section">
-            <div style="padding: 20px;">
-                <h2 style="color: #b8860b; margin-bottom: 12px; font-size: 22px; font-weight: 800;">Withdrawal Account</h2>
-                <p style="color: #4a5568; font-size: 14px; margin-bottom: 20px;">Transfer your earnings securely.</p>
-                <div style="background: #ffffff; border: 1px solid #edf2f7; padding: 24px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-                    <div class="form-group">
-                        <label>Amount ($)</label>
-                        <input type="number" class="form-control" placeholder="0.00">
-                    </div>
-                    <div class="form-group">
-                        <label>Method</label>
-                        <select class="form-control">
-                            <option>KBZ Pay / Wave Pay</option>
-                            <option>International Bank</option>
-                            <option>USDT Crypto</option>
-                        </select>
-                    </div>
-                    <button class="auth-btn" onclick="alert('Withdrawal request submitted!')">Submit Request</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- VIEW 4: USEFUL -->
-        <div id="usefulView" class="view-section">
-            <div style="padding: 20px;">
-                <h2 style="color: #b8860b; margin-bottom: 12px; font-size: 22px; font-weight: 800;">Useful Links & FAQ</h2>
-                <p style="color: #4a5568; font-size: 14px; margin-bottom: 20px;">Guides for MM, EN, TH, JP, KR, CN, VN users.</p>
-                <div style="background: #ffffff; border: 1px solid #edf2f7; padding: 20px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-                    <h4 style="color: #1a202c; font-size: 18px; font-weight: 800;">📌 Booking Guide</h4>
-                    <p style="color: #4a5568; font-size: 13px; margin-top: 5px;">Learn how to book multi-language luxury suites.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- VIEW 5: MORE / CUSTOMER -->
-        <div id="customerView" class="view-section">
-            <div style="padding: 20px; text-align: center;">
-                <h2 style="color: #b8860b; margin-bottom: 12px; font-size: 22px; font-weight: 800;">Customer Service & More</h2>
-                <p style="color: #4a5568; font-size: 14px; margin-bottom: 20px;">24/7 Support across Asia.</p>
-                <button class="explore-btn" style="width: 100%; margin-bottom: 15px; padding: 14px; font-size: 15px; border-radius: 14px; display: block; text-align: center;" onclick="alert('Connecting to live agent...')">Contact Live Support</button>
-                <button class="auth-btn" style="background: #ef4444; color: #fff; box-shadow: 0 4px 15px rgba(239,68,68,0.4);" id="logoutTrigger">Log Out</button>
-            </div>
-        </div>
-
-        <!-- Bottom Tab Navigation matching exact image -->
-        <div class="bottom-nav">
-            <button class="nav-tab active" onclick="switchTab('homeView', this)">
-                <span>🏠</span>
-                Home
-            </button>
-            <button class="nav-tab" onclick="switchTab('membershipView', this)">
-                <span>🏨</span>
-                Hotels
-            </button>
-            <button class="nav-tab" onclick="switchTab('withdrawalView', this)">
-                <span>💳</span>
-                Withdraw
-            </button>
-            <button class="nav-tab" onclick="switchTab('usefulView', this)">
-                <span>📌</span>
-                Useful
-            </button>
-            <button class="nav-tab" onclick="switchTab('customerView', this)">
-                <span>⚙️</span>
-                More
-            </button>
-        </div>
-
+  <!-- SEARCH -->
+  <section class="search">
+    <div class="fields">
+      <div class="f"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5A7 7 0 005 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><div><small>Destination</small><b>e.g. Yangon</b></div></div>
+      <div class="f"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><div><small>Check In</small><b>Jun 15</b></div></div>
+      <div class="f"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><div><small>Check Out</small><b>Jun 18</b></div></div>
+      <div class="f"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg><div><small>Guests</small><b>2 Adults</b></div></div>
     </div>
+    <button class="btn-search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0b1a4a" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>Search Hotels</button>
+  </section>
 
-    <!-- Script to Handle Tabs & Login -->
-    <script>
-        function switchTab(viewId, btnElement) {
-            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active-view'));
-            document.getElementById(viewId).classList.add('active-view');
+  <!-- QUICK LINKS -->
+  <nav class="quick">
+    <div class="q"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.9z"/></svg>Best Deals</div>
+    <div class="q"><svg viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 12L2 9zM2 9h20M9 3l-2 6 5 12 5-12-2-6"  fill-rule="evenodd"/></svg>Luxury Hotels</div>
+    <div class="q"><svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 00-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg>Travel Packages</div>
+    <div class="q"><svg viewBox="0 0 24 24"><path d="M3 8h18v4H3zM4 12h16v9H4zM12 8v13M12 8C9 8 7 6 8.5 4.5S12 5 12 8c0-3 2-4.5 3.5-3S15 8 12 8z" fill-rule="evenodd"/></svg>Member Rewards</div>
+    <div class="q"><svg viewBox="0 0 24 24"><path d="M12 2a8 8 0 00-8 8v6a3 3 0 003 3h1v-8H6v-1a6 6 0 1112 0v1h-2v8h2v1h-5v2h5a3 3 0 003-3V10a8 8 0 00-8-8z"/></svg>24/7 Support</div>
+  </nav>
 
-            if (btnElement) {
-                document.querySelectorAll('.bottom-nav .nav-tab').forEach(el => el.classList.remove('active'));
-                btnElement.classList.add('active');
-            }
-            window.scrollTo(0, 0);
-        }
+  <!-- POPULAR DESTINATIONS -->
+  <div class="sec"><h2><svg viewBox="0 0 24 24"><path d="M12 22s8-7 8-13a8 8 0 00-16 0c0 6 8 13 8 13zm0-10a3 3 0 110-6 3 3 0 010 6z"/></svg>Popular Destinations</h2><a href="#">See All →</a></div>
+  <div class="dest">
+    <div class="d"><div>📍<span>Yangon<small>Myanmar</small></span></div></div>
+    <div class="d"><div>📍<span>Bangkok<small>Thailand</small></span></div></div>
+    <div class="d"><div>📍<span>Singapore<small>Singapore</small></span></div></div>
+    <div class="d"><div>📍<span>Tokyo<small>Japan</small></span></div></div>
+  </div>
 
-        document.addEventListener("DOMContentLoaded", function() {
-            const loginSection = document.getElementById("loginSection");
-            const appContainer = document.getElementById("appContainer");
-            const loginForm = document.getElementById("loginForm");
-            const logoutTrigger = document.getElementById("logoutTrigger");
-            const langSwitchTrigger = document.getElementById("langSwitchTrigger");
+  <!-- SALE -->
+  <section class="sale">
+    <span class="tag">Up to 50% OFF</span>
+    <h3>Summer Luxury Sale</h3>
+    <p>Book now and save up to 50% on premium hotels!</p>
+    <button class="btn-gold">Book Now <span>→</span></button>
+  </section>
 
-            if (localStorage.getItem("isLoggedIn") === "true") {
-                loginSection.classList.add("hidden");
-                appContainer.classList.remove("hidden");
-            }
+  <!-- TOP RATED -->
+  <div class="sec"><h2><svg viewBox="0 0 24 24"><path d="M2 8l5 4 5-8 5 8 5-4-2 12H4z"/></svg>Top Rated Hotels</h2><a href="#">See All →</a></div>
+  <article class="hotel">
+    <div class="pic"></div>
+    <div class="info">
+      <h4>Sule Shangri-La Yangon</h4>
+      <div class="r"><em>★</em> <b>4.8</b> (12K reviews)</div>
+      <div class="l">📍 Yangon, Myanmar</div>
+    </div>
+    <div class="price"><span><b>$120</b> / night</span><i>→</i></div>
+  </article>
 
-            loginForm.addEventListener("submit", function(e) {
-                e.preventDefault();
-                const u = document.getElementById("loginUser").value;
-                const p = document.getElementById("loginPass").value;
-                if (u && p) {
-                    localStorage.setItem("isLoggedIn", "true");
-                    loginSection.classList.add("hidden");
-                    appContainer.classList.remove("hidden");
-                } else {
-                    alert("Please enter credentials.");
-                }
-            });
-
-            logoutTrigger.addEventListener("click", function() {
-                if (confirm("Log out from account?")) {
-                    localStorage.removeItem("isLoggedIn");
-                    appContainer.classList.add("hidden");
-                    loginSection.classList.remove("hidden");
-                }
-            });
-
-            langSwitchTrigger.addEventListener("click", function() {
-                const lang = prompt("Select Language (en, mm, th, jp, kr, cn, vn):", "mm");
-                if (lang && typeof selectLanguage === "function") {
-                    selectLanguage(lang);
-                }
-            });
-        });
-    </script>
-
-    <!-- Modular JS Files -->
-    <script src="language.js"></script>
-    <script src="membership.js"></script>
-    <script src="withdrawal.js"></script>
-    <script src="useful.js"></script>
-    <script src="logout.js"></script>
-    <script src="customer.js"></script>
-    <script src="script.js"></script>
+  <!-- BOTTOM NAV -->
+  <nav class="nav">
+    <a href="#" class="on"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10h-6v-6H9v6H3z"/></svg>Home</a>
+    <a href="#"><svg viewBox="0 0 24 24"><path d="M3 18V8a2 2 0 012-2h14a2 2 0 012 2v10M3 14h18M3 21v-3M21 21v-3M7 10h4"/></svg>Hotels</a>
+    <a href="#"><svg viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="14" rx="2"/><path d="M9 7V4h6v3M9 12h6"/></svg>My Bookings</a>
+    <a href="#"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5.5-8-11a4.5 4.5 0 018-2.7A4.5 4.5 0 0120 10c0 5.500-8 11-8 11z"/></svg>Favorites</a>
+    <a href="#"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>More</a>
+  </nav>
+</div>
 </body>
 </html>
