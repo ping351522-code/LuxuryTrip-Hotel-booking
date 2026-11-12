@@ -13,41 +13,144 @@
     <link rel="stylesheet" href="withdrawal.css">
     <link rel="stylesheet" href="useful.css">
     <link rel="stylesheet" href="logout.css">
+    
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: #181818;
+            border-bottom: 1px solid #333;
+        }
+        .auth-container {
+            max-width: 400px;
+            margin: 80px auto;
+            background: #1e1e1e;
+            border: 1px solid #333;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+        }
+        .auth-container h2 {
+            color: #d4af37;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .hidden {
+            display: none !important;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Header Navigation Bar with Language Switcher & Logout -->
+    <!-- Header Navigation Bar -->
     <header>
-        <div class="logo" data-i18n="hero_title">LUXURY TRIP</div>
+        <!-- Left Side: Language Switcher Menu (Hidden by default until logged in) -->
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <div id="languageSwitcherContainer" class="hidden"></div>
+        </div>
+
+        <!-- Center: Logo -->
+        <div class="logo" data-i18n="hero_title" style="color: #d4af37; font-weight: bold; font-size: 20px; letter-spacing: 1px;">LUXURY TRIP</div>
         
-        <div style="display: flex; gap: 15px; align-items: center;">
-            <!-- Language Switcher Container -->
-            <div id="languageSwitcherContainer"></div>
-            
-            <!-- Logout Button -->
-            <button class="logout-btn" id="logoutBtn" type="button">
+        <!-- Right Side: Logout Button (Hidden by default until logged in) -->
+        <div>
+            <button class="logout-btn hidden" id="logoutBtn" type="button">
                 <span data-i18n="nav_logout">Logout</span>
             </button>
         </div>
     </header>
 
-    <!-- Main Content Container -->
-    <div class="container">
-        <div class="hero-section">
-            <h1 id="mainTitle" data-i18n="hero_title">Luxury Hotel & Resort Booking</h1>
-            <p id="mainSubtitle" data-i18n="hero_subtitle">Experience world-class hospitality across Asia</p>
+    <!-- 1. LOGIN SECTION (Appears first by default) -->
+    <div class="auth-container" id="loginSection">
+        <h2>Member Login</h2>
+        <form id="loginForm">
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label style="color: #ccc; font-size: 14px; display: block; margin-bottom: 5px;">Username</label>
+                <input type="text" id="loginUser" class="form-control" placeholder="Enter username" required style="width: 100%; padding: 10px; background: #121212; border: 1px solid #333; color: #fff; border-radius: 6px; box-sizing: border-box;">
+            </div>
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label style="color: #ccc; font-size: 14px; display: block; margin-bottom: 5px;">Password</label>
+                <input type="password" id="loginPass" class="form-control" placeholder="Enter password" required style="width: 100%; padding: 10px; background: #121212; border: 1px solid #333; color: #fff; border-radius: 6px; box-sizing: border-box;">
+            </div>
+            <button type="submit" class="book-btn" style="width: 100%; background: linear-gradient(135deg, #d4af37, #aa820a); color: #000; border: none; padding: 12px; font-weight: bold; border-radius: 6px; cursor: pointer;">Log In</button>
+        </form>
+    </div>
+
+    <!-- 2. DASHBOARD SECTION (Hidden until logged in) -->
+    <div class="container hidden" id="dashboardSection" style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
+        <div class="hero-section" style="text-align: center; margin-bottom: 40px;">
+            <h1 id="mainTitle" data-i18n="hero_title" style="color: #d4af37; font-size: 32px; margin-bottom: 10px;">Luxury Hotel & Resort Booking</h1>
+            <p id="mainSubtitle" data-i18n="hero_subtitle" style="color: #aaa; font-size: 16px;">Experience world-class hospitality across Asia</p>
         </div>
 
-        <!-- User Dashboard / Profile Card as seen in screenshot -->
         <div style="background: #1e1e1e; border: 1px solid #333; padding: 25px; border-radius: 12px; max-width: 500px; margin: 0 auto; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
             <h3 style="color: #d4af37; margin-bottom: 15px;">ကြိုဆိုပါတယ်, Po Kaing</h3>
             <div style="background: #121212; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #333;">
                 <p style="color: #aaa; font-size: 13px;">အကောင့်ဝင်ငွေကျန်ငွေ (BALANCE)</p>
                 <h2 style="color: #2ecc71; margin-top: 5px;">0 Ks</h2>
             </div>
-            <button class="book-btn" data-i18n="btn_book">Book Now</button>
+            <button class="book-btn" data-i18n="btn_book" style="width: 100%; background: linear-gradient(135deg, #d4af37, #aa820a); color: #000; border: none; padding: 12px; font-weight: bold; border-radius: 6px; cursor: pointer;">Book Now</button>
         </div>
     </div>
+
+    <!-- Inline Script to Handle Login / Logout State & Menu Visibility -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const loginSection = document.getElementById("loginSection");
+            const dashboardSection = document.getElementById("dashboardSection");
+            const logoutBtn = document.getElementById("logoutBtn");
+            const langContainer = document.getElementById("languageSwitcherContainer");
+            const loginForm = document.getElementById("loginForm");
+
+            // Check session state on load
+            if (localStorage.getItem("isLoggedIn") === "true") {
+                loginSection.classList.add("hidden");
+                dashboardSection.classList.remove("hidden");
+                logoutBtn.classList.remove("hidden");
+                langContainer.classList.remove("hidden");
+            }
+
+            loginForm.addEventListener("submit", function(e) {
+                e.preventDefault();
+                const u = document.getElementById("loginUser").value;
+                const p = document.getElementById("loginPass").value;
+
+                if (u && p) {
+                    localStorage.setItem("isLoggedIn", "true");
+                    localStorage.setItem("currentUser", u);
+                    
+                    loginSection.classList.add("hidden");
+                    dashboardSection.classList.remove("hidden");
+                    logoutBtn.classList.remove("hidden");
+                    langContainer.classList.remove("hidden");
+
+                    // Refresh language rendering after login if language.js is loaded
+                    if (typeof applyLanguage === "function") {
+                        applyLanguage(localStorage.getItem("selectedLanguage") || "en");
+                    }
+                } else {
+                    alert("Please enter valid credentials.");
+                }
+            });
+
+            logoutBtn.addEventListener("click", function() {
+                localStorage.removeItem("isLoggedIn");
+                localStorage.removeItem("currentUser");
+                dashboardSection.classList.add("hidden");
+                logoutBtn.classList.add("hidden");
+                langContainer.classList.add("hidden");
+                loginSection.classList.remove("hidden");
+            });
+        });
+    </script>
 
     <!-- Modular JavaScript Files -->
     <script src="language.js"></script>
