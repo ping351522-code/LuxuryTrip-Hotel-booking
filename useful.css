@@ -1,1 +1,81 @@
+/* Useful / Utility Section Styling */
+.useful-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.useful-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.useful-header h2 {
+  color: #d4af37;
+  font-size: 32px;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.useful-header p {
+  color: #aaa;
+  font-size: 16px;
+}
+
+/* FAQ & Useful Grid */
+.useful-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.useful-card {
+  background: linear-gradient(145deg, #1e1e1e, #141414);
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+  transition: border-color 0.3s ease;
+}
+
+.useful-card:hover {
+  border-color: #d4af37;
+}
+
+.useful-card h3 {
+  color: #fff;
+  font-size: 20px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.useful-card h3 span {
+  color: #d4af37;
+}
+
+.useful-card p {
+  color: #bbb;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.useful-link {
+  color: #d4af37;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: opacity 0.2s;
+}
+
+.useful-link:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
 
