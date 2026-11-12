@@ -1,1 +1,125 @@
+/* International Asian-Friendly Luxury Theme */
+:root {
+  --primary-gold: #d4af37;
+  --dark-bg: #121212;
+  --card-bg: #1e1e1e;
+  --text-color: #ffffff;
+  --text-muted: #aaaaaa;
+  --accent-color: #c5a059;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: var(--dark-bg);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* Header & Language Bar */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: var(--card-bg);
+  border-bottom: 1px solid #333;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--primary-gold);
+  letter-spacing: 2px;
+}
+
+.lang-selector select {
+  background: #333;
+  color: #fff;
+  border: 1px solid var(--primary-gold);
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Main Container */
+.container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.hero-section {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.hero-section h1 {
+  font-size: 36px;
+  color: var(--primary-gold);
+  margin-bottom: 10px;
+}
+
+.hero-section p {
+  color: var(--text-muted);
+  font-size: 16px;
+}
+
+/* Hotel Cards Grid */
+.hotel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.hotel-card {
+  background-color: var(--card-bg);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease;
+  border: 1px solid #333;
+}
+
+.hotel-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-gold);
+}
+
+.hotel-info {
+  padding: 20px;
+}
+
+.hotel-info h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.hotel-info p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.book-btn {
+  background: linear-gradient(135deg, #d4af37, #aa820a);
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  transition: opacity 0.2s;
+}
+
+.book-btn:hover {
+  opacity: 0.9;
+}
 
