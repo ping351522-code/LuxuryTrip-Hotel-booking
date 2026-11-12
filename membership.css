@@ -1,1 +1,121 @@
+/* Membership Section Styling */
+.membership-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.membership-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.membership-header h2 {
+  color: #d4af37;
+  font-size: 32px;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.membership-header p {
+  color: #aaa;
+  font-size: 16px;
+}
+
+/* Membership Cards Grid */
+.membership-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+}
+
+.membership-card {
+  background: linear-gradient(145deg, #1e1e1e, #141414);
+  border: 1px solid #333;
+  border-radius: 15px;
+  padding: 30px 20px;
+  text-align: center;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+.membership-card:hover {
+  transform: translateY(-8px);
+  border-color: #d4af37;
+  box-shadow: 0 12px 35px rgba(212, 175, 55, 0.2);
+}
+
+.membership-card.featured {
+  border-color: #d4af37;
+  background: linear-gradient(145deg, #252217, #151515);
+}
+
+.badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #d4af37;
+  color: #121212;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 4px 12px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.membership-card h3 {
+  color: #fff;
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.price {
+  color: #d4af37;
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 25px;
+  text-align: left;
+}
+
+.features-list li {
+  color: #ccc;
+  font-size: 14px;
+  padding: 8px 0;
+  border-bottom: 1px solid #2a2a2a;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.features-list li::before {
+  content: "✔";
+  color: #d4af37;
+  font-weight: bold;
+}
+
+.upgrade-btn {
+  background: linear-gradient(135deg, #d4af37, #aa820a);
+  color: #000;
+  border: none;
+  padding: 12px 0;
+  width: 100%;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.upgrade-btn:hover {
+  opacity: 0.9;
+}
 
